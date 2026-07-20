@@ -48,7 +48,7 @@
                     </div>
                 </div>
                 <div class="flex items-center gap-4">
-                    <button class="text-slate-600 hover:text-brand-600 text-sm font-medium">Login</button>
+                    <a href="mailto:trade@aigreensolutions.com" class="hidden sm:inline text-slate-600 hover:text-brand-600 text-sm font-medium">Contact Sales</a>
                     <button onclick="openSellerModal()" class="bg-brand-600 hover:bg-brand-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all shadow-sm">Become a Seller</button>
                 </div>
             </div>
@@ -73,6 +73,25 @@
                 <button onclick="triggerHeroSearch()" class="bg-brand-600 hover:bg-brand-700 text-white px-6 py-3 rounded-lg font-semibold text-sm transition-all">
                     Search Marketplace
                 </button>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-x-10 gap-y-4 mt-12 text-emerald-100">
+                <div class="text-center">
+                    <span class="block text-2xl font-extrabold text-white">120+</span>
+                    <span class="text-xs uppercase tracking-wider text-emerald-200">Verified Suppliers</span>
+                </div>
+                <div class="text-center">
+                    <span class="block text-2xl font-extrabold text-white">15</span>
+                    <span class="text-xs uppercase tracking-wider text-emerald-200">Export Sectors</span>
+                </div>
+                <div class="text-center">
+                    <span class="block text-2xl font-extrabold text-white">30+</span>
+                    <span class="text-xs uppercase tracking-wider text-emerald-200">Countries Served</span>
+                </div>
+                <div class="text-center">
+                    <span class="block text-2xl font-extrabold text-white">100%</span>
+                    <span class="text-xs uppercase tracking-wider text-emerald-200">Document-Verified Trade</span>
+                </div>
             </div>
         </div>
     </header>
@@ -237,14 +256,29 @@
         </div>
     </section>
 
-    <footer class="bg-slate-900 text-slate-400 py-12 px-4 border-t border-slate-800 w-full mt-auto">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-            <div>
+    <footer class="bg-slate-900 text-slate-400 pt-14 pb-8 px-4 border-t border-slate-800 w-full mt-auto">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 pb-10 border-b border-slate-800">
+            <div class="md:col-span-2">
                 <span class="font-extrabold text-xl text-white">AI GREEN <span class="text-brand-600">SOLUTIONS</span></span>
-                <p class="text-sm mt-2 text-slate-500">Africa's Premier B2B Agricultural Hub</p>
+                <p class="text-sm mt-3 text-slate-500 max-w-sm">Africa's trusted B2B marketplace connecting verified exporters of spices, processed staples, and smoked products with global buyers.</p>
             </div>
-            <p class="text-xs text-slate-500">&copy; 2026 AI Green Solutions Ventures Limited. All rights reserved.</p>
+            <div>
+                <h4 class="text-white text-xs font-bold uppercase tracking-wider mb-3">Marketplace</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#marketplace" class="hover:text-white transition-colors">Browse Listings</a></li>
+                    <li><a href="#pricing" class="hover:text-white transition-colors">Membership Tiers</a></li>
+                    <li><a href="#how-it-works" class="hover:text-white transition-colors">How It Works</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white text-xs font-bold uppercase tracking-wider mb-3">Suppliers</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="become-a-seller.html" class="hover:text-white transition-colors">Apply as a Seller</a></li>
+                    <li><a href="mailto:trade@aigreensolutions.com" class="hover:text-white transition-colors">Contact Sales</a></li>
+                </ul>
+            </div>
         </div>
+        <p class="text-xs text-slate-500 text-center pt-6">&copy; 2026 AI Green Solutions Ventures Limited. All rights reserved.</p>
     </footer>
 
     <div id="rfqModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
@@ -256,7 +290,7 @@
                 </div>
                 <button onclick="closeRFQModal()" class="text-white/80 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <form id="rfqForm" onsubmit="handleRFQSubmit(event)" class="p-6 space-y-4">
+            <form id="rfqForm" onsubmit="handleRFQSubmit(event)" class="p-6 space-y-4 max-h-[75vh] overflow-y-auto">
                 <input type="hidden" id="rfqProductId">
                 <div>
                     <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Product</label>
@@ -265,7 +299,7 @@
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Quantity Needed</label>
-                        <input type="number" required min="1" placeholder="e.g. 5" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600">
+                        <input type="number" id="rfqQuantity" required min="1" placeholder="e.g. 5" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Packaging Standard</label>
@@ -274,14 +308,40 @@
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Target Destination Port / Country</label>
-                    <input type="text" required placeholder="e.g., Port of Rotterdam, Netherlands" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600">
+                    <input type="text" id="rfqDestination" required placeholder="e.g., Port of Rotterdam, Netherlands" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Special Delivery Specifications & Moisture Rules</label>
-                    <textarea rows="3" required placeholder="State your required moisture, cargo packing, and delivery lead times." class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600"></textarea>
+                    <textarea id="rfqSpecifications" rows="3" required placeholder="State your required moisture, cargo packing, and delivery lead times." class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600"></textarea>
                 </div>
-                <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white py-3 rounded-xl font-semibold transition-all shadow-md">Submit RFQ</button>
+                <div class="grid grid-cols-2 gap-4 pt-2 border-t border-slate-100">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Your Name *</label>
+                        <input type="text" id="rfqBuyerName" required class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Company Name</label>
+                        <input type="text" id="rfqBuyerCompany" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Email *</label>
+                        <input type="email" id="rfqBuyerEmail" required class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Phone</label>
+                        <input type="tel" id="rfqBuyerPhone" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600">
+                    </div>
+                </div>
+                <p id="rfqFormError" class="text-xs text-rose-600 hidden"></p>
+                <button type="submit" id="rfqSubmitBtn" class="w-full bg-brand-600 hover:bg-brand-700 text-white py-3 rounded-xl font-semibold transition-all shadow-md">Submit RFQ</button>
             </form>
+            <div id="rfqSuccessBox" class="hidden p-8 text-center">
+                <i class="fa-solid fa-circle-check text-4xl text-brand-600 mb-3"></i>
+                <h3 class="font-bold text-lg text-slate-900 mb-1">Quote Request Sent</h3>
+                <p class="text-sm text-slate-500">The supplier has been notified and will reach out to your email shortly.</p>
+            </div>
         </div>
     </div>
 
@@ -316,7 +376,13 @@
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Business Type</label>
-                        <input type="text" id="s_businessType" placeholder="e.g. Exporter, Processor" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600">
+                        <select id="s_businessType" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600">
+                            <option>Exporter</option>
+                            <option>Producer / Farmer</option>
+                            <option>Trader / Aggregator</option>
+                            <option>Processor</option>
+                            <option>Other</option>
+                        </select>
                     </div>
                 </div>
                 <div class="grid grid-cols-2 gap-4">
@@ -334,6 +400,10 @@
                     <input type="text" id="s_license" placeholder="e.g. NAFDAC / CAC number" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600">
                 </div>
                 <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Products You Plan to Sell</label>
+                    <input type="text" id="s_productsInterested" placeholder="e.g. Ginger, Garri, Charcoal" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600">
+                </div>
+                <div>
                     <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Tell us about your business</label>
                     <textarea id="s_message" rows="2" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600"></textarea>
                 </div>
@@ -344,6 +414,11 @@
                 <p id="sellerFormError" class="text-xs text-rose-600 hidden"></p>
                 <button type="submit" id="sellerSubmitBtn" class="w-full bg-brand-600 hover:bg-brand-700 text-white py-3 rounded-xl font-semibold text-sm transition-colors">Submit Application</button>
             </form>
+            <div id="sellerSuccessBox" class="hidden p-8 text-center">
+                <i class="fa-solid fa-circle-check text-4xl text-brand-600 mb-3"></i>
+                <h3 class="font-bold text-lg text-slate-900 mb-1">Application Submitted</h3>
+                <p class="text-sm text-slate-500">Our team will review your details and documents and get back to you by email.</p>
+            </div>
         </div>
     </div>
 
@@ -517,7 +592,7 @@
                     <div class="bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-lg transition-all overflow-hidden flex flex-col justify-between">
                         <div>
                             <div class="relative h-48 w-full bg-slate-200">
-                                <img src="${product.image}" class="w-full h-full object-cover" alt="${product.name}">
+                                <img src="${product.image}" onerror="this.onerror=null;this.src='https://placehold.co/600x400/dcfce7/166534?text=${encodeURIComponent(product.category || product.sector || 'AI Green Solutions')}';" class="w-full h-full object-cover" alt="${product.name}">
                                 <span class="absolute top-3 left-3 bg-brand-900 text-white text-xs font-bold px-2.5 py-1 rounded-md shadow-sm">${product.sector}</span>
                             </div>
                             <div class="p-6">
@@ -595,6 +670,8 @@
 
         // RFQ Modal Handlers
         function openRFQModal(id, productName, packaging) {
+            document.getElementById("rfqForm").classList.remove("hidden");
+            document.getElementById("rfqSuccessBox").classList.add("hidden");
             document.getElementById("rfqProductId").value = id;
             document.getElementById("rfqProductName").value = productName;
             document.getElementById("rfqPackaging").value = packaging;
@@ -604,21 +681,62 @@
         function closeRFQModal() {
             document.getElementById("rfqModal").classList.add("hidden");
             document.getElementById("rfqForm").reset();
+            document.getElementById("rfqForm").classList.remove("hidden");
+            document.getElementById("rfqSuccessBox").classList.add("hidden");
+            document.getElementById("rfqFormError").classList.add("hidden");
         }
 
-        function handleRFQSubmit(event) {
+        async function handleRFQSubmit(event) {
             event.preventDefault();
-            alert("RFQ Success! Your quotation specifications have been saved on the AI Green secure network. The certified exporter has been alerted and will reach out to schedule cargo compliance testing.");
-            closeRFQModal();
+            const btn = document.getElementById("rfqSubmitBtn");
+            const errEl = document.getElementById("rfqFormError");
+            errEl.classList.add("hidden");
+            const originalLabel = btn.textContent;
+            btn.disabled = true;
+            btn.textContent = "Submitting...";
+
+            try {
+                const rawProductId = document.getElementById("rfqProductId").value;
+                const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(rawProductId);
+                const payload = {
+                    product_id: isUuid ? rawProductId : null,
+                    product_name: document.getElementById("rfqProductName").value,
+                    packaging: document.getElementById("rfqPackaging").value,
+                    quantity: parseFloat(document.getElementById("rfqQuantity").value) || null,
+                    destination: document.getElementById("rfqDestination").value.trim(),
+                    specifications: document.getElementById("rfqSpecifications").value.trim(),
+                    buyer_name: document.getElementById("rfqBuyerName").value.trim(),
+                    buyer_company: document.getElementById("rfqBuyerCompany").value.trim(),
+                    buyer_email: document.getElementById("rfqBuyerEmail").value.trim(),
+                    buyer_phone: document.getElementById("rfqBuyerPhone").value.trim(),
+                    status: "new"
+                };
+
+                const { error } = await sb.from("rfq_requests").insert(payload);
+                if (error) throw error;
+
+                document.getElementById("rfqForm").classList.add("hidden");
+                document.getElementById("rfqSuccessBox").classList.remove("hidden");
+            } catch (err) {
+                errEl.textContent = err.message || "Something went wrong. Please try again.";
+                errEl.classList.remove("hidden");
+            } finally {
+                btn.disabled = false;
+                btn.textContent = originalLabel;
+            }
         }
 
         // ---------------- Seller Application Modal ----------------
         function openSellerModal() {
+            document.getElementById("sellerForm").classList.remove("hidden");
+            document.getElementById("sellerSuccessBox").classList.add("hidden");
             document.getElementById("sellerModal").classList.remove("hidden");
         }
         function closeSellerModal() {
             document.getElementById("sellerModal").classList.add("hidden");
             document.getElementById("sellerForm").reset();
+            document.getElementById("sellerForm").classList.remove("hidden");
+            document.getElementById("sellerSuccessBox").classList.add("hidden");
             document.getElementById("sellerFormError").classList.add("hidden");
         }
 
@@ -649,6 +767,7 @@
                     country: document.getElementById("s_country").value.trim(),
                     city: document.getElementById("s_city").value.trim(),
                     license_number: document.getElementById("s_license").value.trim(),
+                    products_interested: document.getElementById("s_productsInterested").value.trim(),
                     message: document.getElementById("s_message").value.trim(),
                     document_url: documentPath,
                     status: "pending"
@@ -657,8 +776,8 @@
                 const { error } = await sb.from("sellers").insert(payload);
                 if (error) throw error;
 
-                closeSellerModal();
-                alert("Application submitted! Our team will review your details and verification documents, and reach out by email once approved.");
+                document.getElementById("sellerForm").classList.add("hidden");
+                document.getElementById("sellerSuccessBox").classList.remove("hidden");
             } catch (err) {
                 errEl.textContent = err.message || "Something went wrong. Please try again.";
                 errEl.classList.remove("hidden");
@@ -691,7 +810,7 @@
                         moisture: p.moisture || "—",
                         packaging: p.packaging || (sizes.map(s => s.size_label).join(", ") || "—"),
                         verifiedLevel: p.verified_level || "Verified",
-                        image: p.image_url || "https://images.unsplash.com/photo-1595855759920-86582396756a?auto=format&fit=crop&q=80&w=600",
+                        image: p.image_url || `https://placehold.co/600x400/dcfce7/166534?text=${encodeURIComponent(p.category || p.sector || 'AI Green Solutions')}`,
                         supplier: p.supplier || "A.I. Green Solutions Ventures Ltd"
                     };
                 });
