@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Green Solutions Marketplace - Africa's Trusted B2B Agribusiness Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const SUPABASE_URL = "https://jpaieiwfvjeynrnrwuna.supabase.co";
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpwYWllaXdmdmpleW5ybnJ3dW5hIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ1MTk2NjgsImV4cCI6MjEwMDA5NTY2OH0.565R9VTEEpoYBk-MKg-US1oAE9WDVybphEMqMDL7fJg";
+        const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col">
+
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center gap-2">
+                        <span class="p-2 bg-brand-600 rounded-lg text-white font-bold"><i class="fa-solid fa-leaf"></i></span>
+                        <span class="font-extrabold text-xl tracking-tight text-brand-900">AI GREEN <span class="text-brand-600">SOLUTIONS</span></span>
+                    </div>
+                    <div class="hidden md:ml-8 md:flex md:space-x-6">
+                        <a href="#marketplace" class="text-slate-600 hover:text-brand-600 px-3 py-2 text-sm font-medium">Marketplace</a>
+                        <a href="#pricing" class="text-slate-600 hover:text-brand-600 px-3 py-2 text-sm font-medium">Pricing</a>
+                        <a href="#how-it-works" class="text-slate-600 hover:text-brand-600 px-3 py-2 text-sm font-medium">How It Works</a>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button class="text-slate-600 hover:text-brand-600 text-sm font-medium">Login</button>
+                    <button onclick="openSellerModal()" class="bg-brand-600 hover:bg-brand-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all shadow-sm">Become a Seller</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="bg-gradient-to-br from-brand-900 via-brand-800 to-emerald-950 text-white py-20 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <span class="bg-brand-700 text-brand-100 text-xs font-semibold px-3 py-1.5 rounded-full uppercase tracking-wider">Africa's Trusted B2B Agricultural Marketplace</span>
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mt-6 mb-6 leading-tight">
+                Connect Directly with Verified African Exporters
+            </h1>
+            <p class="text-lg md:text-xl text-emerald-100 mb-10 max-w-2xl mx-auto">
+                Secure premium Spices, Processed Agribusiness Staples, and Smoked Products with validated global trade certificates.
+            </p>
+            
+            <div class="bg-white p-2 rounded-xl shadow-xl max-w-2xl mx-auto flex flex-col md:flex-row gap-2">
+                <div class="flex-1 flex items-center px-3 border-r border-slate-100">
+                    <i class="fa-solid fa-magnifying-glass text-slate-400 mr-2"></i>
+                    <input type="text" id="heroSearchInput" placeholder="Search (e.g. Garri, Ginger, Turmeric, Smoked Fish...)" class="w-full py-2 text-slate-800 focus:outline-none text-sm">
+                </div>
+                <button onclick="triggerHeroSearch()" class="bg-brand-600 hover:bg-brand-700 text-white px-6 py-3 rounded-lg font-semibold text-sm transition-all">
+                    Search Marketplace
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="py-12 max-w-7xl mx-auto px-4 w-full">
+        <h2 class="text-center text-xs font-bold text-slate-400 uppercase tracking-widest mb-6">Explore Key Export Sectors</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            <button onclick="filterSector('Processed Foods')" class="bg-white hover:border-brand-600 border border-slate-200 p-5 rounded-xl flex items-center gap-4 transition-all shadow-sm group text-left">
+                <span class="text-3xl p-3 bg-amber-50 rounded-lg group-hover:scale-110 transition-transform">🥣</span>
+                <div>
+                    <h3 class="font-black text-sm text-slate-800">Processed Foods</h3>
+                    <p class="text-xs text-slate-400 mt-0.5">Garri, Flours & Staple Packs</p>
+                </div>
+            </button>
+            <button onclick="filterSector('Spices & Herbs')" class="bg-white hover:border-brand-600 border border-slate-200 p-5 rounded-xl flex items-center gap-4 transition-all shadow-sm group text-left">
+                <span class="text-3xl p-3 bg-emerald-50 rounded-lg group-hover:scale-110 transition-transform">🫚</span>
+                <div>
+                    <h3 class="font-black text-sm text-slate-800">Spices & Herbs</h3>
+                    <p class="text-xs text-slate-400 mt-0.5">Ginger, Turmeric & Moringa</p>
+                </div>
+            </button>
+            <button onclick="filterSector('Smoked Products')" class="bg-white hover:border-brand-600 border border-slate-200 p-5 rounded-xl flex items-center gap-4 transition-all shadow-sm group text-left">
+                <span class="text-3xl p-3 bg-rose-50 rounded-lg group-hover:scale-110 transition-transform">🐟</span>
+                <div>
+                    <h3 class="font-black text-sm text-slate-800">Smoked & Dried</h3>
+                    <p class="text-xs text-slate-400 mt-0.5">Smoked Fish & Smoked Meats</p>
+                </div>
+            </button>
+            <button onclick="filterSector('Grains & Seeds')" class="bg-white hover:border-brand-600 border border-slate-200 p-5 rounded-xl flex items-center gap-4 transition-all shadow-sm group text-left">
+                <span class="text-3xl p-3 bg-yellow-50 rounded-lg group-hover:scale-110 transition-transform">🌾</span>
+                <div>
+                    <h3 class="font-black text-sm text-slate-800">Grains & Seeds</h3>
+                    <p class="text-xs text-slate-400 mt-0.5">Sesame, Soybean & Sorghum</p>
+                </div>
+            </button>
+            <button onclick="resetFilters()" class="bg-brand-50 hover:bg-brand-100 border border-brand-200 p-5 rounded-xl flex items-center justify-center gap-2.5 transition-all shadow-sm">
+                <span class="text-xl text-brand-700"><i class="fa-solid fa-arrows-rotate"></i></span>
+                <span class="font-bold text-sm text-brand-700">View All Listings</span>
+            </button>
+        </div>
+    </section>
+
+    <hr class="border-slate-200 max-w-7xl mx-auto w-full">
+
+    <section id="marketplace" class="py-16 max-w-7xl mx-auto px-4 w-full">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+            <div>
+                <h2 class="text-2xl font-black text-slate-900">Explore Active Listings</h2>
+                <p class="text-slate-500 text-sm">Direct, verified premium export consignments currently in stock.</p>
+            </div>
+            <div class="flex flex-wrap gap-2 w-full md:w-auto">
+                <select id="originFilter" onchange="applyFilters()" class="bg-white border border-slate-200 rounded-lg px-3.5 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-brand-600">
+                    <option value="">Filter by Origin</option>
+                    <option value="Edo">Edo State, Nigeria</option>
+                    <option value="Kano">Kano, Nigeria</option>
+                    <option value="Kaduna">Kaduna, Nigeria</option>
+                    <option value="Ondo">Ondo, Nigeria</option>
+                </select>
+                <select id="tierFilter" onchange="applyFilters()" class="bg-white border border-slate-200 rounded-lg px-3.5 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-brand-600">
+                    <option value="">Verification Level</option>
+                    <option value="Gold Verified">Gold Trust Verified</option>
+                    <option value="Verified">Verified Supplier</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="productGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            </div>
+    </section>
+
+    <section id="pricing" class="bg-slate-100 py-20 px-4 w-full">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h2 class="text-3xl font-extrabold text-slate-900">Membership Tiers</h2>
+                <p class="text-slate-600 mt-4">Accelerate trade with specialized premium features tailored for both exporters and global buyers.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-xl text-slate-800">Basic Free</h3>
+                        <p class="text-slate-500 text-sm mt-1">For new companies joining the network.</p>
+                        <div class="my-6">
+                            <span class="text-4xl font-extrabold text-slate-900">$0</span>
+                            <span class="text-slate-500 text-sm">/ month</span>
+                        </div>
+                        <ul class="space-y-3 border-t border-slate-100 pt-6">
+                            <li class="flex items-center gap-2 text-sm text-slate-600"><i class="fa-solid fa-check text-brand-600"></i> Standard Profile</li>
+                            <li class="flex items-center gap-2 text-sm text-slate-600"><i class="fa-solid fa-check text-brand-600"></i> List up to 5 Products</li>
+                            <li class="flex items-center gap-2 text-sm text-slate-600"><i class="fa-solid fa-check text-brand-600"></i> Basic RFQs</li>
+                        </ul>
+                    </div>
+                    <button onclick="openSellerModal()" class="mt-8 w-full border border-slate-300 py-3 rounded-xl font-semibold text-sm hover:bg-slate-50 transition-colors">Get Started</button>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl border-2 border-brand-600 shadow-md relative flex flex-col justify-between">
+                    <span class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-brand-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Most Popular</span>
+                    <div>
+                        <h3 class="font-bold text-xl text-slate-800">Premium Seller</h3>
+                        <p class="text-slate-500 text-sm mt-1">Scale up your international reach.</p>
+                        <div class="my-6">
+                            <span class="text-4xl font-extrabold text-slate-900">$25</span>
+                            <span class="text-slate-500 text-sm">/ month</span>
+                        </div>
+                        <ul class="space-y-3 border-t border-slate-100 pt-6">
+                            <li class="flex items-center gap-2 text-sm text-slate-600"><i class="fa-solid fa-check text-brand-600"></i> <strong>Unlimited Products</strong></li>
+                            <li class="flex items-center gap-2 text-sm text-slate-600"><i class="fa-solid fa-check text-brand-600"></i> Upload Certificates</li>
+                            <li class="flex items-center gap-2 text-sm text-slate-600"><i class="fa-solid fa-check text-brand-600"></i> Premium Profile Badge</li>
+                            <li class="flex items-center gap-2 text-sm text-slate-600"><i class="fa-solid fa-check text-brand-600"></i> Priority Search Ranking</li>
+                        </ul>
+                    </div>
+                    <button onclick="openSellerModal()" class="mt-8 w-full bg-brand-600 hover:bg-brand-700 text-white py-3 rounded-xl font-semibold text-sm transition-colors">Start Trial</button>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-xl text-slate-800">Enterprise Gold</h3>
+                        <p class="text-slate-500 text-sm mt-1">Ultimate tools for institutional trade.</p>
+                        <div class="my-6">
+                            <span class="text-4xl font-extrabold text-slate-900">$75</span>
+                            <span class="text-slate-500 text-sm">/ month</span>
+                        </div>
+                        <ul class="space-y-3 border-t border-slate-100 pt-6">
+                            <li class="flex items-center gap-2 text-sm text-slate-600"><i class="fa-solid fa-check text-brand-600"></i> Everything in Premium</li>
+                            <li class="flex items-center gap-2 text-sm text-slate-600"><i class="fa-solid fa-check text-brand-600"></i> Homepage Featured Listings</li>
+                            <li class="flex items-center gap-2 text-sm text-slate-600"><i class="fa-solid fa-check text-brand-600"></i> <strong>Gold Verification Badge</strong></li>
+                            <li class="flex items-center gap-2 text-sm text-slate-600"><i class="fa-solid fa-check text-brand-600"></i> Dedicated Account Manager</li>
+                        </ul>
+                    </div>
+                    <button onclick="openSellerModal()" class="mt-8 w-full border border-slate-300 py-3 rounded-xl font-semibold text-sm hover:bg-slate-50 transition-colors">Contact Sales</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="py-20 max-w-7xl mx-auto px-4 w-full">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+            <h2 class="text-3xl font-extrabold text-slate-900">How B2B Export Works</h2>
+            <p class="text-slate-500 mt-3">Simplifying international agricultural trade in 4 easy steps.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="text-center">
+                <span class="w-12 h-12 bg-brand-50 border border-brand-200 text-brand-600 font-bold flex items-center justify-center rounded-full mx-auto text-lg mb-4">1</span>
+                <h4 class="font-bold text-slate-800 mb-2">Register & Verify</h4>
+                <p class="text-slate-500 text-sm">Complete verification with your export licenses & credentials (NAFDAC, Phytosanitary, etc).</p>
+            </div>
+            <div class="text-center">
+                <span class="w-12 h-12 bg-brand-50 border border-brand-200 text-brand-600 font-bold flex items-center justify-center rounded-full mx-auto text-lg mb-4">2</span>
+                <h4 class="font-bold text-slate-800 mb-2">Upload Inventory</h4>
+                <p class="text-slate-500 text-sm">Display precise details, moisture levels, purity metrics & export packaging styles.</p>
+            </div>
+            <div class="text-center">
+                <span class="w-12 h-12 bg-brand-50 border border-brand-200 text-brand-600 font-bold flex items-center justify-center rounded-full mx-auto text-lg mb-4">3</span>
+                <h4 class="font-bold text-slate-800 mb-2">Receive RFQs</h4>
+                <p class="text-slate-500 text-sm">Global buyers send secure, specific quotes directly to your dashboard.</p>
+            </div>
+            <div class="text-center">
+                <span class="w-12 h-12 bg-brand-50 border border-brand-200 text-brand-600 font-bold flex items-center justify-center rounded-full mx-auto text-lg mb-4">4</span>
+                <h4 class="font-bold text-slate-800 mb-2">Secure Trade</h4>
+                <p class="text-slate-500 text-sm">Exchange contracts, verify quality control and initiate shipment.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-slate-900 text-slate-400 py-12 px-4 border-t border-slate-800 w-full mt-auto">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div>
+                <span class="font-extrabold text-xl text-white">AI GREEN <span class="text-brand-600">SOLUTIONS</span></span>
+                <p class="text-sm mt-2 text-slate-500">Africa's Premier B2B Agricultural Hub</p>
+            </div>
+            <p class="text-xs text-slate-500">&copy; 2026 AI Green Solutions Ventures Limited. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div id="rfqModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden border border-slate-100">
+            <div class="bg-brand-900 text-white p-6 flex justify-between items-center">
+                <div>
+                    <h3 class="text-xl font-bold">Request a Quotation</h3>
+                    <p class="text-brand-100 text-xs mt-1">Submit direct sourcing details to the supplier.</p>
+                </div>
+                <button onclick="closeRFQModal()" class="text-white/80 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="rfqForm" onsubmit="handleRFQSubmit(event)" class="p-6 space-y-4">
+                <input type="hidden" id="rfqProductId">
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Product</label>
+                    <input type="text" id="rfqProductName" readonly class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Quantity Needed</label>
+                        <input type="number" required min="1" placeholder="e.g. 5" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Packaging Standard</label>
+                        <input type="text" id="rfqPackaging" readonly class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-700">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Target Destination Port / Country</label>
+                    <input type="text" required placeholder="e.g., Port of Rotterdam, Netherlands" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Special Delivery Specifications & Moisture Rules</label>
+                    <textarea rows="3" required placeholder="State your required moisture, cargo packing, and delivery lead times." class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white py-3 rounded-xl font-semibold transition-all shadow-md">Submit RFQ</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="sellerModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50 overflow-y-auto">
+        <div class="bg-white rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden border border-slate-100 my-8">
+            <div class="bg-brand-900 text-white p-6 flex justify-between items-center">
+                <div>
+                    <h3 class="text-xl font-bold">Become a Verified Seller</h3>
+                    <p class="text-brand-100 text-xs mt-1">Submit your company details for review by our team.</p>
+                </div>
+                <button onclick="closeSellerModal()" class="text-white/80 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="sellerForm" onsubmit="handleSellerSubmit(event)" class="p-6 space-y-4 max-h-[70vh] overflow-y-auto">
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Company Name *</label>
+                    <input type="text" id="s_company" required class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Contact Name *</label>
+                        <input type="text" id="s_contact" required class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Email *</label>
+                        <input type="email" id="s_email" required class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Phone</label>
+                        <input type="text" id="s_phone" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Business Type</label>
+                        <input type="text" id="s_businessType" placeholder="e.g. Exporter, Processor" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Country</label>
+                        <input type="text" id="s_country" value="Nigeria" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">City / State</label>
+                        <input type="text" id="s_city" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Export License / Registration Number</label>
+                    <input type="text" id="s_license" placeholder="e.g. NAFDAC / CAC number" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Tell us about your business</label>
+                    <textarea id="s_message" rows="2" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600"></textarea>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Upload Certificate / License (PDF or image)</label>
+                    <input type="file" id="s_document" accept=".pdf,image/*" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm">
+                </div>
+                <p id="sellerFormError" class="text-xs text-rose-600 hidden"></p>
+                <button type="submit" id="sellerSubmitBtn" class="w-full bg-brand-600 hover:bg-brand-700 text-white py-3 rounded-xl font-semibold text-sm transition-colors">Submit Application</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Expanded Mock DB matching registry structures
+        const productDatabase = [
+            {
+                id: 1,
+                name: "Export-Grade White Garri (Fine Grain)",
+                category: "Garri",
+                sector: "Processed Foods",
+                origin: "Edo State, Nigeria",
+                price: "$1,100",
+                priceUnit: "Metric Ton",
+                moq: "5 MT",
+                purity: "99.2%",
+                moisture: "8% Max",
+                packaging: "50kg Sealed PP Bags",
+                verifiedLevel: "Gold Verified",
+                image: "https://images.unsplash.com/photo-1590005354167-6da97870c913?auto=format&fit=crop&q=80&w=600",
+                supplier: "A.I. Green Solutions Ventures Ltd"
+            },
+            {
+                id: 2,
+                name: "Premium Split Dried Ginger",
+                category: "Ginger",
+                sector: "Spices & Herbs",
+                origin: "Kaduna, Nigeria",
+                price: "$2,200",
+                priceUnit: "Metric Ton",
+                moq: "18 MT",
+                purity: "98.5%",
+                moisture: "7.5% Max",
+                packaging: "40kg Mesh Bags",
+                verifiedLevel: "Gold Verified",
+                image: "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&q=80&w=600",
+                supplier: "Northern Fields Agribusiness"
+            },
+            {
+                id: 3,
+                name: "Dehydrated Premium Dried Turmeric",
+                category: "Turmeric",
+                sector: "Spices & Herbs",
+                origin: "Kano, Nigeria",
+                price: "$2,450",
+                priceUnit: "Metric Ton",
+                moq: "10 MT",
+                purity: "99%",
+                moisture: "9% Max",
+                packaging: "25kg Jute Bags",
+                verifiedLevel: "Verified",
+                image: "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&q=80&w=600",
+                supplier: "Kano Organics Cooperative"
+            },
+            {
+                id: 4,
+                name: "Oron Smoked Crayfish & Dried Catfish Packs",
+                category: "Smoked Fish",
+                sector: "Smoked Products",
+                origin: "Ondo, Nigeria",
+                price: "$450",
+                priceUnit: "Carton",
+                moq: "50 Cartons",
+                purity: "100% Organic",
+                moisture: "5% Max",
+                packaging: "Vacuum Pack Sealed Cartons",
+                verifiedLevel: "Gold Verified",
+                image: "https://images.unsplash.com/photo-1587132137056-bfbf0166836e?auto=format&fit=crop&q=80&w=600",
+                supplier: "Delta Coast Seafood Exporters"
+            },
+            {
+                id: 5,
+                name: "Export Standard Yam Flour (Elubo)",
+                category: "Yam Flour",
+                sector: "Processed Foods",
+                origin: "Ondo, Nigeria",
+                price: "$1,350",
+                priceUnit: "Metric Ton",
+                moq: "3 MT",
+                purity: "99.8%",
+                moisture: "10% Max",
+                packaging: "25kg Custom PP Sacks",
+                verifiedLevel: "Verified",
+                image: "https://images.unsplash.com/photo-1587132137056-bfbf0166836e?auto=format&fit=crop&q=80&w=600",
+                supplier: "Ondo Farmers Alliance"
+            },
+            {
+                id: 6,
+                name: "Export-Grade Hulled Sesame Seeds",
+                category: "Sesame Seeds",
+                sector: "Grains & Seeds",
+                origin: "Kaduna, Nigeria",
+                price: "$1,850",
+                priceUnit: "Metric Ton",
+                moq: "20 MT",
+                purity: "99.5%",
+                moisture: "6% Max",
+                packaging: "50kg PP Woven Bags",
+                verifiedLevel: "Gold Verified",
+                image: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&q=80&w=600",
+                supplier: "Northern Fields Agribusiness"
+            },
+            {
+                id: 7,
+                name: "Premium Grade A Soybeans",
+                category: "Soybean",
+                sector: "Grains & Seeds",
+                origin: "Kano, Nigeria",
+                price: "$620",
+                priceUnit: "Metric Ton",
+                moq: "25 MT",
+                purity: "98%",
+                moisture: "12% Max",
+                packaging: "50kg Jute Bags",
+                verifiedLevel: "Verified",
+                image: "https://images.unsplash.com/photo-1610725663608-2e2ce5f0b8c7?auto=format&fit=crop&q=80&w=600",
+                supplier: "Kano Organics Cooperative"
+            },
+            {
+                id: 8,
+                name: "Clean White Sorghum Grain",
+                category: "Sorghum",
+                sector: "Grains & Seeds",
+                origin: "Kaduna, Nigeria",
+                price: "$430",
+                priceUnit: "Metric Ton",
+                moq: "30 MT",
+                purity: "99%",
+                moisture: "13% Max",
+                packaging: "50kg PP Woven Bags",
+                verifiedLevel: "Gold Verified",
+                image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&q=80&w=600",
+                supplier: "Northern Fields Agribusiness"
+            }
+        ];
+
+        let activeFilters = {
+            search: "",
+            sector: "",
+            origin: "",
+            tier: ""
+        };
+
+        // Render Marketplace Cards
+        function renderProducts() {
+            const grid = document.getElementById("productGrid");
+            grid.innerHTML = "";
+
+            const filteredProducts = productDatabase.filter(product => {
+                const matchSearch = product.name.toLowerCase().includes(activeFilters.search.toLowerCase()) || 
+                                    product.category.toLowerCase().includes(activeFilters.search.toLowerCase()) ||
+                                    product.sector.toLowerCase().includes(activeFilters.search.toLowerCase());
+                const matchSector = activeFilters.sector === "" || product.sector === activeFilters.sector;
+                const matchOrigin = activeFilters.origin === "" || product.origin.includes(activeFilters.origin);
+                const matchTier = activeFilters.tier === "" || product.verifiedLevel === activeFilters.tier;
+
+                return matchSearch && matchSector && matchOrigin && matchTier;
+            });
+
+            if (filteredProducts.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-12 bg-white rounded-2xl border border-slate-200">
+                        <span class="text-4xl">🔎</span>
+                        <p class="text-slate-500 font-semibold mt-3">No export items match your current filter selection.</p>
+                    </div>`;
+                return;
+            }
+
+            filteredProducts.forEach(product => {
+                const card = `
+                    <div class="bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-lg transition-all overflow-hidden flex flex-col justify-between">
+                        <div>
+                            <div class="relative h-48 w-full bg-slate-200">
+                                <img src="${product.image}" class="w-full h-full object-cover" alt="${product.name}">
+                                <span class="absolute top-3 left-3 bg-brand-900 text-white text-xs font-bold px-2.5 py-1 rounded-md shadow-sm">${product.sector}</span>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center gap-2 mb-2.5">
+                                    <span class="text-[11px] font-black px-2.5 py-1 rounded bg-emerald-50 text-emerald-700 flex items-center gap-1 border border-emerald-100/50">
+                                        <i class="fa-solid fa-circle-check"></i> ${product.verifiedLevel}
+                                    </span>
+                                </div>
+                                <h3 class="font-extrabold text-lg text-slate-900 line-clamp-1 leading-snug">${product.name}</h3>
+                                <p class="text-xs text-slate-400 mt-1 font-medium">Supplier: ${product.supplier}</p>
+                                
+                                <div class="grid grid-cols-2 gap-4 my-4 bg-slate-50 p-3.5 rounded-xl border border-slate-100">
+                                    <div>
+                                        <span class="text-[9px] text-slate-400 uppercase font-extrabold tracking-wider block">Purity</span>
+                                        <span class="font-bold text-xs text-slate-700">${product.purity}</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-[9px] text-slate-400 uppercase font-extrabold tracking-wider block">Moisture</span>
+                                        <span class="font-bold text-xs text-slate-700">${product.moisture}</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-[9px] text-slate-400 uppercase font-extrabold tracking-wider block">Origin</span>
+                                        <span class="font-bold text-xs text-slate-700">${product.origin}</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-[9px] text-slate-400 uppercase font-extrabold tracking-wider block">MOQ</span>
+                                        <span class="font-bold text-xs text-slate-700">${product.moq}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="px-6 pb-6 pt-2 border-t border-slate-100 flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] text-slate-400 uppercase font-bold block">Estimated Price</span>
+                                <span class="font-extrabold text-lg text-brand-700">${product.price} <span class="text-xs font-normal text-slate-500">/ ${product.priceUnit}</span></span>
+                            </div>
+                            <button onclick="openRFQModal(${product.id}, '${product.name}', '${product.packaging}')" class="bg-brand-600 hover:bg-brand-700 text-white text-xs font-extrabold px-4.5 py-2.5 rounded-lg transition-colors shadow-sm">
+                                Get Quote
+                            </button>
+                        </div>
+                    </div>`;
+                grid.innerHTML += card;
+            });
+        }
+
+        // Sector Quick Filters
+        function filterSector(sector) {
+            activeFilters.sector = sector;
+            renderProducts();
+            document.getElementById("marketplace").scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Dropdown Filters
+        function applyFilters() {
+            activeFilters.origin = document.getElementById("originFilter").value;
+            activeFilters.tier = document.getElementById("tierFilter").value;
+            renderProducts();
+        }
+
+        // Hero Search bar logic
+        function triggerHeroSearch() {
+            activeFilters.search = document.getElementById("heroSearchInput").value;
+            renderProducts();
+            document.getElementById("marketplace").scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Reset Filter System
+        function resetFilters() {
+            activeFilters = { search: "", sector: "", origin: "", tier: "" };
+            document.getElementById("heroSearchInput").value = "";
+            document.getElementById("originFilter").value = "";
+            document.getElementById("tierFilter").value = "";
+            renderProducts();
+        }
+
+        // RFQ Modal Handlers
+        function openRFQModal(id, productName, packaging) {
+            document.getElementById("rfqProductId").value = id;
+            document.getElementById("rfqProductName").value = productName;
+            document.getElementById("rfqPackaging").value = packaging;
+            document.getElementById("rfqModal").classList.remove("hidden");
+        }
+
+        function closeRFQModal() {
+            document.getElementById("rfqModal").classList.add("hidden");
+            document.getElementById("rfqForm").reset();
+        }
+
+        function handleRFQSubmit(event) {
+            event.preventDefault();
+            alert("RFQ Success! Your quotation specifications have been saved on the AI Green secure network. The certified exporter has been alerted and will reach out to schedule cargo compliance testing.");
+            closeRFQModal();
+        }
+
+        // ---------------- Seller Application Modal ----------------
+        function openSellerModal() {
+            document.getElementById("sellerModal").classList.remove("hidden");
+        }
+        function closeSellerModal() {
+            document.getElementById("sellerModal").classList.add("hidden");
+            document.getElementById("sellerForm").reset();
+            document.getElementById("sellerFormError").classList.add("hidden");
+        }
+
+        async function handleSellerSubmit(event) {
+            event.preventDefault();
+            const btn = document.getElementById("sellerSubmitBtn");
+            const errEl = document.getElementById("sellerFormError");
+            errEl.classList.add("hidden");
+            const originalLabel = btn.textContent;
+            btn.disabled = true;
+            btn.textContent = "Submitting...";
+
+            try {
+                let documentPath = null;
+                const file = document.getElementById("s_document").files[0];
+                if (file) {
+                    documentPath = `${Date.now()}-${file.name.replace(/\s+/g, "-")}`;
+                    const { error: upErr } = await sb.storage.from("seller-documents").upload(documentPath, file);
+                    if (upErr) throw upErr;
+                }
+
+                const payload = {
+                    company_name: document.getElementById("s_company").value.trim(),
+                    contact_name: document.getElementById("s_contact").value.trim(),
+                    email: document.getElementById("s_email").value.trim(),
+                    phone: document.getElementById("s_phone").value.trim(),
+                    business_type: document.getElementById("s_businessType").value.trim(),
+                    country: document.getElementById("s_country").value.trim(),
+                    city: document.getElementById("s_city").value.trim(),
+                    license_number: document.getElementById("s_license").value.trim(),
+                    message: document.getElementById("s_message").value.trim(),
+                    document_url: documentPath,
+                    status: "pending"
+                };
+
+                const { error } = await sb.from("sellers").insert(payload);
+                if (error) throw error;
+
+                closeSellerModal();
+                alert("Application submitted! Our team will review your details and verification documents, and reach out by email once approved.");
+            } catch (err) {
+                errEl.textContent = err.message || "Something went wrong. Please try again.";
+                errEl.classList.remove("hidden");
+            } finally {
+                btn.disabled = false;
+                btn.textContent = originalLabel;
+            }
+        }
+
+        // ---------------- Load Live Products from Supabase ----------------
+        async function loadLiveProducts() {
+            try {
+                const { data: products, error } = await sb.from("products").select("*").order("created_at", { ascending: false });
+                if (error || !products || products.length === 0) return; // keep demo data as fallback
+
+                const { data: allSizes } = await sb.from("product_sizes").select("*");
+
+                const liveProducts = products.map(p => {
+                    const sizes = (allSizes || []).filter(s => s.product_id === p.id);
+                    return {
+                        id: p.id,
+                        name: p.name,
+                        category: p.category || "",
+                        sector: p.sector || "",
+                        origin: p.origin || "",
+                        price: p.price ? `$${p.price}` : "Contact for Price",
+                        priceUnit: p.price_unit || "Metric Ton",
+                        moq: p.moq || (sizes[0]?.size_label ?? "—"),
+                        purity: p.purity || "—",
+                        moisture: p.moisture || "—",
+                        packaging: p.packaging || (sizes.map(s => s.size_label).join(", ") || "—"),
+                        verifiedLevel: p.verified_level || "Verified",
+                        image: p.image_url || "https://images.unsplash.com/photo-1595855759920-86582396756a?auto=format&fit=crop&q=80&w=600",
+                        supplier: p.supplier || "A.I. Green Solutions Ventures Ltd"
+                    };
+                });
+
+                // Replace the demo catalog with real uploaded products
+                productDatabase.length = 0;
+                productDatabase.push(...liveProducts);
+                renderProducts();
+            } catch (e) {
+                console.warn("Could not load live products, showing demo listings.", e);
+            }
+        }
+
+        // Initial Load Execution
+        window.onload = () => {
+            renderProducts();
+            loadLiveProducts();
+        };
+    </script>
+</body>
+</html>

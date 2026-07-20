@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Become a Seller - AI Green Solutions Marketplace</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: { colors: { brand: {
+    50:'#f0fdf4',100:'#dcfce7',600:'#16a34a',700:'#15803d',800:'#166534',900:'#14532d'
+  } } } } }
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col">
+
+<nav class="bg-white border-b border-slate-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center">
+    <a href="MARKETPLACE.html" class="flex items-center gap-2">
+      <span class="p-2 bg-brand-600 rounded-lg text-white font-bold"><i class="fa-solid fa-leaf"></i></span>
+      <span class="font-extrabold text-lg text-brand-900">AI GREEN <span class="text-brand-600">SOLUTIONS</span></span>
+    </a>
+  </div>
+</nav>
+
+<div class="max-w-2xl mx-auto px-4 py-12 w-full flex-1">
+  <div class="text-center mb-8">
+    <span class="bg-brand-100 text-brand-700 text-xs font-semibold px-3 py-1.5 rounded-full uppercase tracking-wider">Seller Verification</span>
+    <h1 class="text-3xl font-extrabold text-slate-900 mt-4">Become a Verified Seller</h1>
+    <p class="text-slate-500 mt-2">Tell us about your business. Our team reviews every application before it goes live on the marketplace.</p>
+  </div>
+
+  <div id="successBox" class="hidden bg-brand-50 border border-brand-200 text-brand-800 rounded-xl p-6 text-center">
+    <i class="fa-solid fa-circle-check text-3xl text-brand-600 mb-3"></i>
+    <h2 class="font-bold text-lg mb-1">Application Submitted</h2>
+    <p class="text-sm">Thank you. Our team will review your details and documents and get back to you by email.</p>
+  </div>
+
+  <form id="sellerForm" class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 space-y-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Company Name *</label>
+        <input type="text" id="companyName" required class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600">
+      </div>
+      <div>
+        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Contact Name *</label>
+        <input type="text" id="contactName" required class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600">
+      </div>
+      <div>
+        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Email *</label>
+        <input type="email" id="email" required class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600">
+      </div>
+      <div>
+        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Phone</label>
+        <input type="tel" id="phone" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600">
+      </div>
+      <div>
+        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Country</label>
+        <input type="text" id="country" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600">
+      </div>
+      <div>
+        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Business Type</label>
+        <select id="businessType" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600">
+          <option>Exporter</option>
+          <option>Producer / Farmer</option>
+          <option>Trader / Aggregator</option>
+          <option>Other</option>
+        </select>
+      </div>
+    </div>
+    <div>
+      <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Products You Plan to Sell</label>
+      <input type="text" id="productsInterested" placeholder="e.g. Ginger, Garri, Charcoal" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600">
+    </div>
+    <div>
+      <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Tell us about your business</label>
+      <textarea id="message" rows="3" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600"></textarea>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-slate-100">
+      <div>
+        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Export License / CAC Document</label>
+        <input type="file" id="licenseDoc" class="w-full text-sm">
+      </div>
+      <div>
+        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Quality / Phytosanitary Certificate</label>
+        <input type="file" id="certDoc" class="w-full text-sm">
+      </div>
+    </div>
+
+    <p id="formError" class="text-sm text-red-600 hidden"></p>
+
+    <button type="submit" id="submitBtn" class="w-full bg-brand-600 hover:bg-brand-700 text-white py-3 rounded-xl font-semibold text-sm transition-all shadow-md">
+      Submit Application
+    </button>
+  </form>
+</div>
+
+<script>
+const SUPABASE_URL = "YOUR_SUPABASE_PROJECT_URL";
+const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+document.getElementById('sellerForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  const errEl = document.getElementById('formError');
+  errEl.classList.add('hidden');
+  btn.disabled = true;
+  btn.textContent = 'Submitting...';
+
+  try {
+    let licenseDocPath = null, certDocPath = null;
+    const licenseFile = document.getElementById('licenseDoc').files[0];
+    const certFile = document.getElementById('certDoc').files[0];
+
+    if (licenseFile) {
+      licenseDocPath = `${Date.now()}-license-${licenseFile.name}`;
+      const { error } = await supabase.storage.from('seller-documents').upload(licenseDocPath, licenseFile);
+      if (error) throw error;
+    }
+    if (certFile) {
+      certDocPath = `${Date.now()}-cert-${certFile.name}`;
+      const { error } = await supabase.storage.from('seller-documents').upload(certDocPath, certFile);
+      if (error) throw error;
+    }
+
+    const { error } = await supabase.from('seller_applications').insert({
+      company_name: document.getElementById('companyName').value,
+      contact_name: document.getElementById('contactName').value,
+      email: document.getElementById('email').value,
+      phone: document.getElementById('phone').value,
+      country: document.getElementById('country').value,
+      business_type: document.getElementById('businessType').value,
+      products_interested: document.getElementById('productsInterested').value,
+      message: document.getElementById('message').value,
+      license_doc_url: licenseDocPath,
+      cert_doc_url: certDocPath
+    });
+    if (error) throw error;
+
+    document.getElementById('sellerForm').classList.add('hidden');
+    document.getElementById('successBox').classList.remove('hidden');
+  } catch (err) {
+    errEl.textContent = err.message || 'Something went wrong. Please try again.';
+    errEl.classList.remove('hidden');
+    btn.disabled = false;
+    btn.textContent = 'Submit Application';
+  }
+});
+</script>
+</body>
+</html>
