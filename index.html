@@ -5,18 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Green Solutions Marketplace - Africa's Trusted B2B Agribusiness Platform</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
+                    fontFamily: {
+                        display: ['Fraunces', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
                     colors: {
+                        paper: '#FAF8F2',
+                        ink: '#1B2A21',
                         brand: {
-                            50: '#f0fdf4',
-                            100: '#dcfce7',
-                            600: '#16a34a',
-                            700: '#15803d',
-                            800: '#166534',
-                            900: '#14532d',
+                            50: '#EEF3EC',
+                            100: '#DCE7D6',
+                            200: '#B9CFAE',
+                            300: '#8FB07E',
+                            600: '#1F6F4A',
+                            700: '#175939',
+                            800: '#0F3D2E',
+                            900: '#0A2A20',
+                        },
+                        gold: {
+                            100: '#F3E9D2',
+                            300: '#DCC078',
+                            600: '#B8863A',
+                            700: '#966B2C',
                         }
                     }
                 }
@@ -24,6 +42,47 @@
         }
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-display { font-family: 'Fraunces', serif; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+        .paper-texture {
+            background-image:
+                radial-gradient(circle at 1px 1px, rgba(15,61,46,0.07) 1px, transparent 0);
+            background-size: 22px 22px;
+        }
+
+        .manifest-rule {
+            background-image: repeating-linear-gradient(90deg, #C9C2AC 0, #C9C2AC 6px, transparent 6px, transparent 12px);
+            height: 1px;
+        }
+
+        .stamp {
+            border: 2px solid currentColor;
+            border-radius: 9999px;
+            transform: rotate(-8deg);
+        }
+
+        .corner-ticks { position: relative; }
+        .corner-ticks::before, .corner-ticks::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            pointer-events: none;
+        }
+        .corner-ticks::before {
+            top: -1px; left: -1px;
+            border-top: 2px solid #DCC078; border-left: 2px solid #DCC078;
+        }
+        .corner-ticks::after {
+            bottom: -1px; right: -1px;
+            border-bottom: 2px solid #DCC078; border-right: 2px solid #DCC078;
+        }
+
+        ::selection { background: #DCC078; color: #0F3D2E; }
+    </style>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         const SUPABASE_URL = "https://jpaieiwfvjeynrnrwuna.supabase.co";
@@ -31,126 +90,161 @@
         const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     </script>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col">
+<body class="bg-paper text-ink font-sans min-h-screen flex flex-col">
 
-    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
+    <nav class="bg-paper/95 backdrop-blur border-b border-brand-800/10 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
+            <div class="flex justify-between h-[72px]">
                 <div class="flex items-center">
-                    <div class="flex-shrink-0 flex items-center gap-2">
-                        <span class="p-2 bg-brand-600 rounded-lg text-white font-bold"><i class="fa-solid fa-leaf"></i></span>
-                        <span class="font-extrabold text-xl tracking-tight text-brand-900">AI GREEN <span class="text-brand-600">SOLUTIONS</span></span>
+                    <div class="flex-shrink-0 flex items-center gap-3">
+                        <span class="w-10 h-10 flex items-center justify-center bg-brand-800 rounded-full text-gold-300 border border-gold-300/40"><i class="fa-solid fa-leaf text-sm"></i></span>
+                        <span class="font-display font-semibold text-xl tracking-tight text-brand-900 leading-none">AI Green <span class="italic font-normal text-brand-600">Solutions</span></span>
                     </div>
-                    <div class="hidden md:ml-8 md:flex md:space-x-6">
-                        <a href="#marketplace" class="text-slate-600 hover:text-brand-600 px-3 py-2 text-sm font-medium">Marketplace</a>
-                        <a href="#pricing" class="text-slate-600 hover:text-brand-600 px-3 py-2 text-sm font-medium">Pricing</a>
-                        <a href="#how-it-works" class="text-slate-600 hover:text-brand-600 px-3 py-2 text-sm font-medium">How It Works</a>
+                    <div class="hidden md:ml-10 md:flex md:space-x-1">
+                        <a href="#marketplace" class="text-ink/70 hover:text-brand-700 px-3 py-2 text-sm font-medium transition-colors">Marketplace</a>
+                        <a href="#pricing" class="text-ink/70 hover:text-brand-700 px-3 py-2 text-sm font-medium transition-colors">Pricing</a>
+                        <a href="#how-it-works" class="text-ink/70 hover:text-brand-700 px-3 py-2 text-sm font-medium transition-colors">How It Works</a>
                     </div>
                 </div>
-                <div class="flex items-center gap-4">
-                    <a href="mailto:trade@aigreensolutions.com" class="hidden sm:inline text-slate-600 hover:text-brand-600 text-sm font-medium">Contact Sales</a>
-                    <button onclick="openSellerModal()" class="bg-brand-600 hover:bg-brand-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all shadow-sm">Become a Seller</button>
+                <div class="flex items-center gap-5">
+                    <a href="mailto:trade@aigreensolutions.com" class="hidden sm:inline text-ink/70 hover:text-brand-700 text-sm font-medium transition-colors">Contact Sales</a>
+                    <button onclick="openSellerModal()" class="bg-brand-800 hover:bg-brand-900 text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all shadow-sm">Become a Seller</button>
                 </div>
             </div>
         </div>
     </nav>
 
-    <header class="bg-gradient-to-br from-brand-900 via-brand-800 to-emerald-950 text-white py-20 px-4">
-        <div class="max-w-4xl mx-auto text-center">
-            <span class="bg-brand-700 text-brand-100 text-xs font-semibold px-3 py-1.5 rounded-full uppercase tracking-wider">Africa's Trusted B2B Agricultural Marketplace</span>
-            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mt-6 mb-6 leading-tight">
-                Connect Directly with Verified African Exporters
-            </h1>
-            <p class="text-lg md:text-xl text-emerald-100 mb-10 max-w-2xl mx-auto">
-                Secure premium Spices, Processed Agribusiness Staples, and Smoked Products with validated global trade certificates.
-            </p>
-            
-            <div class="bg-white p-2 rounded-xl shadow-xl max-w-2xl mx-auto flex flex-col md:flex-row gap-2">
-                <div class="flex-1 flex items-center px-3 border-r border-slate-100">
-                    <i class="fa-solid fa-magnifying-glass text-slate-400 mr-2"></i>
-                    <input type="text" id="heroSearchInput" placeholder="Search (e.g. Garri, Ginger, Turmeric, Smoked Fish...)" class="w-full py-2 text-slate-800 focus:outline-none text-sm">
+    <header class="relative bg-brand-900 text-white overflow-hidden">
+        <div class="absolute inset-0 paper-texture opacity-[0.15]"></div>
+        <div class="absolute -right-24 -top-24 w-[420px] h-[420px] rounded-full border border-gold-300/10"></div>
+        <div class="absolute -right-6 top-16 w-[280px] h-[280px] rounded-full border border-gold-300/10"></div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-7">
+                <div class="flex items-center gap-3 mb-7">
+                    <span class="font-mono text-[11px] tracking-[0.2em] text-gold-300 uppercase">Ref. No. AGS&#8209;2026&#8209;TRADE</span>
+                    <span class="manifest-rule flex-1 max-w-[100px] opacity-40"></span>
                 </div>
-                <button onclick="triggerHeroSearch()" class="bg-brand-600 hover:bg-brand-700 text-white px-6 py-3 rounded-lg font-semibold text-sm transition-all">
-                    Search Marketplace
-                </button>
+                <h1 class="font-display text-5xl md:text-6xl font-semibold tracking-tight leading-[1.05] mb-6">
+                    Africa's export catalogue, <span class="italic text-gold-300">verified line by line.</span>
+                </h1>
+                <p class="text-lg text-brand-100/90 mb-10 max-w-xl leading-relaxed">
+                    Source premium spices, processed staples, and smoked products directly from document-verified African exporters — every consignment backed by inspected certificates, not promises.
+                </p>
+
+                <div class="bg-white p-2 rounded-2xl shadow-2xl max-w-xl flex flex-col sm:flex-row gap-2">
+                    <div class="flex-1 flex items-center px-3.5">
+                        <i class="fa-solid fa-magnifying-glass text-brand-800/40 mr-2.5"></i>
+                        <input type="text" id="heroSearchInput" placeholder="Search Garri, Ginger, Turmeric, Smoked Fish…" class="w-full py-2.5 text-ink focus:outline-none text-sm bg-transparent">
+                    </div>
+                    <button onclick="triggerHeroSearch()" class="bg-brand-800 hover:bg-brand-900 text-white px-6 py-3 rounded-xl font-semibold text-sm transition-all whitespace-nowrap">
+                        Search Marketplace
+                    </button>
+                </div>
+
+                <div class="flex flex-wrap gap-x-10 gap-y-5 mt-14">
+                    <div>
+                        <span class="block font-display text-3xl font-semibold text-white">120+</span>
+                        <span class="text-[11px] uppercase tracking-widest text-brand-200/80">Verified Suppliers</span>
+                    </div>
+                    <div>
+                        <span class="block font-display text-3xl font-semibold text-white">15</span>
+                        <span class="text-[11px] uppercase tracking-widest text-brand-200/80">Export Sectors</span>
+                    </div>
+                    <div>
+                        <span class="block font-display text-3xl font-semibold text-white">30+</span>
+                        <span class="text-[11px] uppercase tracking-widest text-brand-200/80">Countries Served</span>
+                    </div>
+                    <div>
+                        <span class="block font-display text-3xl font-semibold text-white">100%</span>
+                        <span class="text-[11px] uppercase tracking-widest text-brand-200/80">Document-Verified</span>
+                    </div>
+                </div>
             </div>
 
-            <div class="flex flex-wrap justify-center gap-x-10 gap-y-4 mt-12 text-emerald-100">
-                <div class="text-center">
-                    <span class="block text-2xl font-extrabold text-white">120+</span>
-                    <span class="text-xs uppercase tracking-wider text-emerald-200">Verified Suppliers</span>
-                </div>
-                <div class="text-center">
-                    <span class="block text-2xl font-extrabold text-white">15</span>
-                    <span class="text-xs uppercase tracking-wider text-emerald-200">Export Sectors</span>
-                </div>
-                <div class="text-center">
-                    <span class="block text-2xl font-extrabold text-white">30+</span>
-                    <span class="text-xs uppercase tracking-wider text-emerald-200">Countries Served</span>
-                </div>
-                <div class="text-center">
-                    <span class="block text-2xl font-extrabold text-white">100%</span>
-                    <span class="text-xs uppercase tracking-wider text-emerald-200">Document-Verified Trade</span>
+            <div class="lg:col-span-5 relative hidden lg:flex justify-center">
+                <div class="bg-white text-ink rounded-2xl shadow-2xl w-full max-w-sm p-6 rotate-2 corner-ticks">
+                    <div class="flex justify-between items-start border-b border-dashed border-slate-200 pb-3 mb-3">
+                        <div>
+                            <span class="block font-mono text-[10px] uppercase tracking-widest text-slate-400">Certificate of Verification</span>
+                            <span class="block font-display text-base font-semibold mt-0.5">Premium Split Dried Ginger</span>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 font-mono text-xs mb-4">
+                        <div><span class="block text-slate-400 uppercase text-[9px]">Origin</span><span class="font-semibold">Kaduna, NG</span></div>
+                        <div><span class="block text-slate-400 uppercase text-[9px]">Purity</span><span class="font-semibold">98.5%</span></div>
+                        <div><span class="block text-slate-400 uppercase text-[9px]">Moisture</span><span class="font-semibold">7.5% Max</span></div>
+                        <div><span class="block text-slate-400 uppercase text-[9px]">MOQ</span><span class="font-semibold">18 MT</span></div>
+                    </div>
+                    <div class="flex items-center justify-between border-t border-dashed border-slate-200 pt-3">
+                        <span class="text-xs text-slate-400">Status</span>
+                        <span class="stamp text-brand-700 text-[10px] font-bold uppercase tracking-wider px-3 py-1">Gold Verified</span>
+                    </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <section class="py-12 max-w-7xl mx-auto px-4 w-full">
-        <h2 class="text-center text-xs font-bold text-slate-400 uppercase tracking-widest mb-6">Explore Key Export Sectors</h2>
+    <section class="py-16 max-w-7xl mx-auto px-4 w-full">
+        <div class="flex items-center gap-3 mb-8">
+            <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-brand-700/70">01 — Sectors</span>
+            <span class="manifest-rule flex-1 opacity-60"></span>
+        </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            <button onclick="filterSector('Processed Foods')" class="bg-white hover:border-brand-600 border border-slate-200 p-5 rounded-xl flex items-center gap-4 transition-all shadow-sm group text-left">
-                <span class="text-3xl p-3 bg-amber-50 rounded-lg group-hover:scale-110 transition-transform">🥣</span>
+            <button onclick="filterSector('Processed Foods')" class="bg-white hover:border-brand-700 hover:-translate-y-0.5 border border-brand-800/10 p-5 rounded-xl flex items-center gap-4 transition-all shadow-sm group text-left">
+                <span class="text-2xl w-11 h-11 flex items-center justify-center bg-brand-50 rounded-full group-hover:scale-110 transition-transform">🥣</span>
                 <div>
-                    <h3 class="font-black text-sm text-slate-800">Processed Foods</h3>
-                    <p class="text-xs text-slate-400 mt-0.5">Garri, Flours & Staple Packs</p>
+                    <h3 class="font-semibold text-sm text-ink">Processed Foods</h3>
+                    <p class="text-xs text-ink/45 mt-0.5">Garri, Flours & Staple Packs</p>
                 </div>
             </button>
-            <button onclick="filterSector('Spices & Herbs')" class="bg-white hover:border-brand-600 border border-slate-200 p-5 rounded-xl flex items-center gap-4 transition-all shadow-sm group text-left">
-                <span class="text-3xl p-3 bg-emerald-50 rounded-lg group-hover:scale-110 transition-transform">🫚</span>
+            <button onclick="filterSector('Spices & Herbs')" class="bg-white hover:border-brand-700 hover:-translate-y-0.5 border border-brand-800/10 p-5 rounded-xl flex items-center gap-4 transition-all shadow-sm group text-left">
+                <span class="text-2xl w-11 h-11 flex items-center justify-center bg-brand-50 rounded-full group-hover:scale-110 transition-transform">🫚</span>
                 <div>
-                    <h3 class="font-black text-sm text-slate-800">Spices & Herbs</h3>
-                    <p class="text-xs text-slate-400 mt-0.5">Ginger, Turmeric & Moringa</p>
+                    <h3 class="font-semibold text-sm text-ink">Spices & Herbs</h3>
+                    <p class="text-xs text-ink/45 mt-0.5">Ginger, Turmeric & Moringa</p>
                 </div>
             </button>
-            <button onclick="filterSector('Smoked Products')" class="bg-white hover:border-brand-600 border border-slate-200 p-5 rounded-xl flex items-center gap-4 transition-all shadow-sm group text-left">
-                <span class="text-3xl p-3 bg-rose-50 rounded-lg group-hover:scale-110 transition-transform">🐟</span>
+            <button onclick="filterSector('Smoked Products')" class="bg-white hover:border-brand-700 hover:-translate-y-0.5 border border-brand-800/10 p-5 rounded-xl flex items-center gap-4 transition-all shadow-sm group text-left">
+                <span class="text-2xl w-11 h-11 flex items-center justify-center bg-brand-50 rounded-full group-hover:scale-110 transition-transform">🐟</span>
                 <div>
-                    <h3 class="font-black text-sm text-slate-800">Smoked & Dried</h3>
-                    <p class="text-xs text-slate-400 mt-0.5">Smoked Fish & Smoked Meats</p>
+                    <h3 class="font-semibold text-sm text-ink">Smoked & Dried</h3>
+                    <p class="text-xs text-ink/45 mt-0.5">Smoked Fish & Smoked Meats</p>
                 </div>
             </button>
-            <button onclick="filterSector('Grains & Seeds')" class="bg-white hover:border-brand-600 border border-slate-200 p-5 rounded-xl flex items-center gap-4 transition-all shadow-sm group text-left">
-                <span class="text-3xl p-3 bg-yellow-50 rounded-lg group-hover:scale-110 transition-transform">🌾</span>
+            <button onclick="filterSector('Grains & Seeds')" class="bg-white hover:border-brand-700 hover:-translate-y-0.5 border border-brand-800/10 p-5 rounded-xl flex items-center gap-4 transition-all shadow-sm group text-left">
+                <span class="text-2xl w-11 h-11 flex items-center justify-center bg-brand-50 rounded-full group-hover:scale-110 transition-transform">🌾</span>
                 <div>
-                    <h3 class="font-black text-sm text-slate-800">Grains & Seeds</h3>
-                    <p class="text-xs text-slate-400 mt-0.5">Sesame, Soybean & Sorghum</p>
+                    <h3 class="font-semibold text-sm text-ink">Grains & Seeds</h3>
+                    <p class="text-xs text-ink/45 mt-0.5">Sesame, Soybean & Sorghum</p>
                 </div>
             </button>
-            <button onclick="resetFilters()" class="bg-brand-50 hover:bg-brand-100 border border-brand-200 p-5 rounded-xl flex items-center justify-center gap-2.5 transition-all shadow-sm">
-                <span class="text-xl text-brand-700"><i class="fa-solid fa-arrows-rotate"></i></span>
-                <span class="font-bold text-sm text-brand-700">View All Listings</span>
+            <button onclick="resetFilters()" class="bg-brand-800 hover:bg-brand-900 border border-brand-800 p-5 rounded-xl flex items-center justify-center gap-2.5 transition-all shadow-sm">
+                <span class="text-lg text-gold-300"><i class="fa-solid fa-arrows-rotate"></i></span>
+                <span class="font-semibold text-sm text-white">View All Listings</span>
             </button>
         </div>
     </section>
 
-    <hr class="border-slate-200 max-w-7xl mx-auto w-full">
-
     <section id="marketplace" class="py-16 max-w-7xl mx-auto px-4 w-full">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+        <div class="flex items-center gap-3 mb-8">
+            <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-brand-700/70">02 — Listings</span>
+            <span class="manifest-rule flex-1 opacity-60"></span>
+        </div>
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-10">
             <div>
-                <h2 class="text-2xl font-black text-slate-900">Explore Active Listings</h2>
-                <p class="text-slate-500 text-sm">Direct, verified premium export consignments currently in stock.</p>
+                <h2 class="font-display text-3xl font-semibold text-brand-900">Active Consignments</h2>
+                <p class="text-ink/50 text-sm mt-1">Direct, verified premium export consignments currently in stock.</p>
             </div>
             <div class="flex flex-wrap gap-2 w-full md:w-auto">
-                <select id="originFilter" onchange="applyFilters()" class="bg-white border border-slate-200 rounded-lg px-3.5 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-brand-600">
+                <select id="originFilter" onchange="applyFilters()" class="bg-white border border-brand-800/15 rounded-lg px-3.5 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-brand-600 text-ink/80">
                     <option value="">Filter by Origin</option>
                     <option value="Edo">Edo State, Nigeria</option>
                     <option value="Kano">Kano, Nigeria</option>
                     <option value="Kaduna">Kaduna, Nigeria</option>
                     <option value="Ondo">Ondo, Nigeria</option>
                 </select>
-                <select id="tierFilter" onchange="applyFilters()" class="bg-white border border-slate-200 rounded-lg px-3.5 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-brand-600">
+                <select id="tierFilter" onchange="applyFilters()" class="bg-white border border-brand-800/15 rounded-lg px-3.5 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-brand-600 text-ink/80">
                     <option value="">Verification Level</option>
                     <option value="Gold Verified">Gold Trust Verified</option>
                     <option value="Verified">Verified Supplier</option>
@@ -158,201 +252,210 @@
             </div>
         </div>
 
-        <div id="productGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div id="productGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
             </div>
     </section>
 
-    <section id="pricing" class="bg-slate-100 py-20 px-4 w-full">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center max-w-2xl mx-auto mb-12">
-                <h2 class="text-3xl font-extrabold text-slate-900">Membership Tiers</h2>
-                <p class="text-slate-600 mt-4">Accelerate trade with specialized premium features tailored for both exporters and global buyers.</p>
+    <section id="pricing" class="bg-brand-900 py-24 px-4 w-full relative overflow-hidden">
+        <div class="absolute inset-0 paper-texture opacity-[0.08]"></div>
+        <div class="relative max-w-7xl mx-auto">
+            <div class="flex items-center gap-3 mb-8 max-w-5xl mx-auto">
+                <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-gold-300/80">03 — Membership</span>
+                <span class="manifest-rule flex-1 opacity-20"></span>
+            </div>
+            <div class="max-w-2xl mb-14">
+                <h2 class="font-display text-3xl md:text-4xl font-semibold text-white">Terms of membership</h2>
+                <p class="text-brand-100/70 mt-4">Accelerate trade with specialized premium features tailored for both exporters and global buyers.</p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                <div class="bg-brand-800/60 border border-white/10 p-8 rounded-2xl flex flex-col justify-between">
                     <div>
-                        <h3 class="font-bold text-xl text-slate-800">Basic Free</h3>
-                        <p class="text-slate-500 text-sm mt-1">For new companies joining the network.</p>
+                        <h3 class="font-display font-semibold text-xl text-white">Basic Free</h3>
+                        <p class="text-brand-100/60 text-sm mt-1">For new companies joining the network.</p>
                         <div class="my-6">
-                            <span class="text-4xl font-extrabold text-slate-900">$0</span>
-                            <span class="text-slate-500 text-sm">/ month</span>
+                            <span class="font-mono text-4xl font-semibold text-white">$0</span>
+                            <span class="text-brand-100/50 text-sm">/ month</span>
                         </div>
-                        <ul class="space-y-3 border-t border-slate-100 pt-6">
-                            <li class="flex items-center gap-2 text-sm text-slate-600"><i class="fa-solid fa-check text-brand-600"></i> Standard Profile</li>
-                            <li class="flex items-center gap-2 text-sm text-slate-600"><i class="fa-solid fa-check text-brand-600"></i> List up to 5 Products</li>
-                            <li class="flex items-center gap-2 text-sm text-slate-600"><i class="fa-solid fa-check text-brand-600"></i> Basic RFQs</li>
+                        <ul class="space-y-3 border-t border-dashed border-white/15 pt-6">
+                            <li class="flex items-center gap-2.5 text-sm text-brand-100/80"><i class="fa-solid fa-check text-gold-300 text-xs"></i> Standard Profile</li>
+                            <li class="flex items-center gap-2.5 text-sm text-brand-100/80"><i class="fa-solid fa-check text-gold-300 text-xs"></i> List up to 5 Products</li>
+                            <li class="flex items-center gap-2.5 text-sm text-brand-100/80"><i class="fa-solid fa-check text-gold-300 text-xs"></i> Basic RFQs</li>
                         </ul>
                     </div>
-                    <button onclick="openSellerModal()" class="mt-8 w-full border border-slate-300 py-3 rounded-xl font-semibold text-sm hover:bg-slate-50 transition-colors">Get Started</button>
+                    <button onclick="openSellerModal()" class="mt-8 w-full border border-white/25 text-white py-3 rounded-xl font-semibold text-sm hover:bg-white/5 transition-colors">Get Started</button>
                 </div>
 
-                <div class="bg-white p-8 rounded-2xl border-2 border-brand-600 shadow-md relative flex flex-col justify-between">
-                    <span class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-brand-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Most Popular</span>
+                <div class="bg-white p-8 rounded-2xl shadow-2xl relative flex flex-col justify-between corner-ticks">
+                    <span class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gold-600 text-white text-[11px] font-bold px-3.5 py-1 rounded-full uppercase tracking-wider shadow">Most Popular</span>
                     <div>
-                        <h3 class="font-bold text-xl text-slate-800">Premium Seller</h3>
-                        <p class="text-slate-500 text-sm mt-1">Scale up your international reach.</p>
+                        <h3 class="font-display font-semibold text-xl text-brand-900">Premium Seller</h3>
+                        <p class="text-ink/50 text-sm mt-1">Scale up your international reach.</p>
                         <div class="my-6">
-                            <span class="text-4xl font-extrabold text-slate-900">$25</span>
-                            <span class="text-slate-500 text-sm">/ month</span>
+                            <span class="font-mono text-4xl font-semibold text-brand-900">$25</span>
+                            <span class="text-ink/40 text-sm">/ month</span>
                         </div>
-                        <ul class="space-y-3 border-t border-slate-100 pt-6">
-                            <li class="flex items-center gap-2 text-sm text-slate-600"><i class="fa-solid fa-check text-brand-600"></i> <strong>Unlimited Products</strong></li>
-                            <li class="flex items-center gap-2 text-sm text-slate-600"><i class="fa-solid fa-check text-brand-600"></i> Upload Certificates</li>
-                            <li class="flex items-center gap-2 text-sm text-slate-600"><i class="fa-solid fa-check text-brand-600"></i> Premium Profile Badge</li>
-                            <li class="flex items-center gap-2 text-sm text-slate-600"><i class="fa-solid fa-check text-brand-600"></i> Priority Search Ranking</li>
+                        <ul class="space-y-3 border-t border-dashed border-slate-200 pt-6">
+                            <li class="flex items-center gap-2.5 text-sm text-ink/75"><i class="fa-solid fa-check text-brand-600 text-xs"></i> <strong>Unlimited Products</strong></li>
+                            <li class="flex items-center gap-2.5 text-sm text-ink/75"><i class="fa-solid fa-check text-brand-600 text-xs"></i> Upload Certificates</li>
+                            <li class="flex items-center gap-2.5 text-sm text-ink/75"><i class="fa-solid fa-check text-brand-600 text-xs"></i> Premium Profile Badge</li>
+                            <li class="flex items-center gap-2.5 text-sm text-ink/75"><i class="fa-solid fa-check text-brand-600 text-xs"></i> Priority Search Ranking</li>
                         </ul>
                     </div>
-                    <button onclick="openSellerModal()" class="mt-8 w-full bg-brand-600 hover:bg-brand-700 text-white py-3 rounded-xl font-semibold text-sm transition-colors">Start Trial</button>
+                    <button onclick="openSellerModal()" class="mt-8 w-full bg-brand-800 hover:bg-brand-900 text-white py-3 rounded-xl font-semibold text-sm transition-colors">Start Trial</button>
                 </div>
 
-                <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                <div class="bg-brand-800/60 border border-white/10 p-8 rounded-2xl flex flex-col justify-between">
                     <div>
-                        <h3 class="font-bold text-xl text-slate-800">Enterprise Gold</h3>
-                        <p class="text-slate-500 text-sm mt-1">Ultimate tools for institutional trade.</p>
+                        <h3 class="font-display font-semibold text-xl text-white">Enterprise Gold</h3>
+                        <p class="text-brand-100/60 text-sm mt-1">Ultimate tools for institutional trade.</p>
                         <div class="my-6">
-                            <span class="text-4xl font-extrabold text-slate-900">$75</span>
-                            <span class="text-slate-500 text-sm">/ month</span>
+                            <span class="font-mono text-4xl font-semibold text-white">$75</span>
+                            <span class="text-brand-100/50 text-sm">/ month</span>
                         </div>
-                        <ul class="space-y-3 border-t border-slate-100 pt-6">
-                            <li class="flex items-center gap-2 text-sm text-slate-600"><i class="fa-solid fa-check text-brand-600"></i> Everything in Premium</li>
-                            <li class="flex items-center gap-2 text-sm text-slate-600"><i class="fa-solid fa-check text-brand-600"></i> Homepage Featured Listings</li>
-                            <li class="flex items-center gap-2 text-sm text-slate-600"><i class="fa-solid fa-check text-brand-600"></i> <strong>Gold Verification Badge</strong></li>
-                            <li class="flex items-center gap-2 text-sm text-slate-600"><i class="fa-solid fa-check text-brand-600"></i> Dedicated Account Manager</li>
+                        <ul class="space-y-3 border-t border-dashed border-white/15 pt-6">
+                            <li class="flex items-center gap-2.5 text-sm text-brand-100/80"><i class="fa-solid fa-check text-gold-300 text-xs"></i> Everything in Premium</li>
+                            <li class="flex items-center gap-2.5 text-sm text-brand-100/80"><i class="fa-solid fa-check text-gold-300 text-xs"></i> Homepage Featured Listings</li>
+                            <li class="flex items-center gap-2.5 text-sm text-brand-100/80"><i class="fa-solid fa-check text-gold-300 text-xs"></i> <strong>Gold Verification Badge</strong></li>
+                            <li class="flex items-center gap-2.5 text-sm text-brand-100/80"><i class="fa-solid fa-check text-gold-300 text-xs"></i> Dedicated Account Manager</li>
                         </ul>
                     </div>
-                    <button onclick="openSellerModal()" class="mt-8 w-full border border-slate-300 py-3 rounded-xl font-semibold text-sm hover:bg-slate-50 transition-colors">Contact Sales</button>
+                    <button onclick="openSellerModal()" class="mt-8 w-full border border-white/25 text-white py-3 rounded-xl font-semibold text-sm hover:bg-white/5 transition-colors">Contact Sales</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="how-it-works" class="py-20 max-w-7xl mx-auto px-4 w-full">
-        <div class="text-center max-w-2xl mx-auto mb-16">
-            <h2 class="text-3xl font-extrabold text-slate-900">How B2B Export Works</h2>
-            <p class="text-slate-500 mt-3">Simplifying international agricultural trade in 4 easy steps.</p>
+    <section id="how-it-works" class="py-24 max-w-7xl mx-auto px-4 w-full">
+        <div class="flex items-center gap-3 mb-8">
+            <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-brand-700/70">04 — Process</span>
+            <span class="manifest-rule flex-1 opacity-60"></span>
+        </div>
+        <div class="max-w-2xl mb-16">
+            <h2 class="font-display text-3xl md:text-4xl font-semibold text-brand-900">How B2B export works</h2>
+            <p class="text-ink/50 mt-3">Simplifying international agricultural trade in four documented steps.</p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div class="text-center">
-                <span class="w-12 h-12 bg-brand-50 border border-brand-200 text-brand-600 font-bold flex items-center justify-center rounded-full mx-auto text-lg mb-4">1</span>
-                <h4 class="font-bold text-slate-800 mb-2">Register & Verify</h4>
-                <p class="text-slate-500 text-sm">Complete verification with your export licenses & credentials (NAFDAC, Phytosanitary, etc).</p>
+            <div class="relative pl-0">
+                <span class="font-mono text-5xl font-light text-brand-800/15 block mb-3">01</span>
+                <h4 class="font-display font-semibold text-lg text-brand-900 mb-2">Register &amp; verify</h4>
+                <p class="text-ink/50 text-sm leading-relaxed">Complete verification with your export licenses &amp; credentials (NAFDAC, Phytosanitary, etc).</p>
             </div>
-            <div class="text-center">
-                <span class="w-12 h-12 bg-brand-50 border border-brand-200 text-brand-600 font-bold flex items-center justify-center rounded-full mx-auto text-lg mb-4">2</span>
-                <h4 class="font-bold text-slate-800 mb-2">Upload Inventory</h4>
-                <p class="text-slate-500 text-sm">Display precise details, moisture levels, purity metrics & export packaging styles.</p>
+            <div class="relative pl-0">
+                <span class="font-mono text-5xl font-light text-brand-800/15 block mb-3">02</span>
+                <h4 class="font-display font-semibold text-lg text-brand-900 mb-2">Upload inventory</h4>
+                <p class="text-ink/50 text-sm leading-relaxed">Display precise details, moisture levels, purity metrics &amp; export packaging styles.</p>
             </div>
-            <div class="text-center">
-                <span class="w-12 h-12 bg-brand-50 border border-brand-200 text-brand-600 font-bold flex items-center justify-center rounded-full mx-auto text-lg mb-4">3</span>
-                <h4 class="font-bold text-slate-800 mb-2">Receive RFQs</h4>
-                <p class="text-slate-500 text-sm">Global buyers send secure, specific quotes directly to your dashboard.</p>
+            <div class="relative pl-0">
+                <span class="font-mono text-5xl font-light text-brand-800/15 block mb-3">03</span>
+                <h4 class="font-display font-semibold text-lg text-brand-900 mb-2">Receive RFQs</h4>
+                <p class="text-ink/50 text-sm leading-relaxed">Global buyers send secure, specific quotes directly to your dashboard.</p>
             </div>
-            <div class="text-center">
-                <span class="w-12 h-12 bg-brand-50 border border-brand-200 text-brand-600 font-bold flex items-center justify-center rounded-full mx-auto text-lg mb-4">4</span>
-                <h4 class="font-bold text-slate-800 mb-2">Secure Trade</h4>
-                <p class="text-slate-500 text-sm">Exchange contracts, verify quality control and initiate shipment.</p>
+            <div class="relative pl-0">
+                <span class="font-mono text-5xl font-light text-brand-800/15 block mb-3">04</span>
+                <h4 class="font-display font-semibold text-lg text-brand-900 mb-2">Secure trade</h4>
+                <p class="text-ink/50 text-sm leading-relaxed">Exchange contracts, verify quality control and initiate shipment.</p>
             </div>
         </div>
     </section>
 
-    <footer class="bg-slate-900 text-slate-400 pt-14 pb-8 px-4 border-t border-slate-800 w-full mt-auto">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 pb-10 border-b border-slate-800">
+    <footer class="bg-ink text-brand-100/60 pt-16 pb-8 px-4 border-t border-white/5 w-full mt-auto">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 pb-10 border-b border-dashed border-white/10">
             <div class="md:col-span-2">
-                <span class="font-extrabold text-xl text-white">AI GREEN <span class="text-brand-600">SOLUTIONS</span></span>
-                <p class="text-sm mt-3 text-slate-500 max-w-sm">Africa's trusted B2B marketplace connecting verified exporters of spices, processed staples, and smoked products with global buyers.</p>
+                <span class="font-display font-semibold text-xl text-white">AI Green <span class="italic font-normal text-gold-300">Solutions</span></span>
+                <p class="text-sm mt-3 text-brand-100/40 max-w-sm leading-relaxed">Africa's trusted B2B marketplace connecting verified exporters of spices, processed staples, and smoked products with global buyers.</p>
             </div>
             <div>
-                <h4 class="text-white text-xs font-bold uppercase tracking-wider mb-3">Marketplace</h4>
-                <ul class="space-y-2 text-sm">
-                    <li><a href="#marketplace" class="hover:text-white transition-colors">Browse Listings</a></li>
-                    <li><a href="#pricing" class="hover:text-white transition-colors">Membership Tiers</a></li>
-                    <li><a href="#how-it-works" class="hover:text-white transition-colors">How It Works</a></li>
+                <h4 class="text-white/90 font-mono text-[11px] uppercase tracking-widest mb-4">Marketplace</h4>
+                <ul class="space-y-2.5 text-sm">
+                    <li><a href="#marketplace" class="hover:text-gold-300 transition-colors">Browse Listings</a></li>
+                    <li><a href="#pricing" class="hover:text-gold-300 transition-colors">Membership Tiers</a></li>
+                    <li><a href="#how-it-works" class="hover:text-gold-300 transition-colors">How It Works</a></li>
                 </ul>
             </div>
             <div>
-                <h4 class="text-white text-xs font-bold uppercase tracking-wider mb-3">Suppliers</h4>
-                <ul class="space-y-2 text-sm">
-                    <li><a href="become-a-seller.html" class="hover:text-white transition-colors">Apply as a Seller</a></li>
-                    <li><a href="mailto:trade@aigreensolutions.com" class="hover:text-white transition-colors">Contact Sales</a></li>
+                <h4 class="text-white/90 font-mono text-[11px] uppercase tracking-widest mb-4">Suppliers</h4>
+                <ul class="space-y-2.5 text-sm">
+                    <li><a href="become-a-seller.html" class="hover:text-gold-300 transition-colors">Apply as a Seller</a></li>
+                    <li><a href="mailto:trade@aigreensolutions.com" class="hover:text-gold-300 transition-colors">Contact Sales</a></li>
                 </ul>
             </div>
         </div>
-        <p class="text-xs text-slate-500 text-center pt-6">&copy; 2026 AI Green Solutions Ventures Limited. All rights reserved.</p>
+        <p class="text-xs text-brand-100/30 text-center pt-6 font-mono">&copy; 2026 AI Green Solutions Ventures Limited. All rights reserved.</p>
     </footer>
 
-    <div id="rfqModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+    <div id="rfqModal" class="fixed inset-0 bg-ink/70 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
         <div class="bg-white rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden border border-slate-100">
             <div class="bg-brand-900 text-white p-6 flex justify-between items-center">
                 <div>
-                    <h3 class="text-xl font-bold">Request a Quotation</h3>
-                    <p class="text-brand-100 text-xs mt-1">Submit direct sourcing details to the supplier.</p>
+                    <span class="font-mono text-[10px] uppercase tracking-widest text-gold-300/80 block mb-1">Form 02 — Sourcing</span>
+                    <h3 class="font-display text-xl font-semibold">Request a Quotation</h3>
                 </div>
-                <button onclick="closeRFQModal()" class="text-white/80 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
+                <button onclick="closeRFQModal()" class="text-white/70 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <form id="rfqForm" onsubmit="handleRFQSubmit(event)" class="p-6 space-y-4 max-h-[75vh] overflow-y-auto">
                 <input type="hidden" id="rfqProductId">
                 <div>
-                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Product</label>
-                    <input type="text" id="rfqProductName" readonly class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700">
+                    <label class="block text-xs font-bold text-ink/40 uppercase tracking-wide mb-1">Product</label>
+                    <input type="text" id="rfqProductName" readonly class="w-full bg-brand-50 border border-brand-800/10 rounded-lg px-3 py-2 text-sm font-semibold text-brand-900">
                 </div>
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Quantity Needed</label>
+                        <label class="block text-xs font-bold text-ink/40 uppercase tracking-wide mb-1">Quantity Needed</label>
                         <input type="number" id="rfqQuantity" required min="1" placeholder="e.g. 5" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Packaging Standard</label>
-                        <input type="text" id="rfqPackaging" readonly class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-700">
+                        <label class="block text-xs font-bold text-ink/40 uppercase tracking-wide mb-1">Packaging Standard</label>
+                        <input type="text" id="rfqPackaging" readonly class="w-full bg-brand-50 border border-brand-800/10 rounded-lg px-3 py-2 text-sm text-brand-900">
                     </div>
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Target Destination Port / Country</label>
+                    <label class="block text-xs font-bold text-ink/40 uppercase tracking-wide mb-1">Target Destination Port / Country</label>
                     <input type="text" id="rfqDestination" required placeholder="e.g., Port of Rotterdam, Netherlands" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Special Delivery Specifications & Moisture Rules</label>
+                    <label class="block text-xs font-bold text-ink/40 uppercase tracking-wide mb-1">Special Delivery Specifications & Moisture Rules</label>
                     <textarea id="rfqSpecifications" rows="3" required placeholder="State your required moisture, cargo packing, and delivery lead times." class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600"></textarea>
                 </div>
-                <div class="grid grid-cols-2 gap-4 pt-2 border-t border-slate-100">
+                <div class="grid grid-cols-2 gap-4 pt-2 border-t border-dashed border-slate-200">
                     <div>
-                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Your Name *</label>
+                        <label class="block text-xs font-bold text-ink/40 uppercase tracking-wide mb-1">Your Name *</label>
                         <input type="text" id="rfqBuyerName" required class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Company Name</label>
+                        <label class="block text-xs font-bold text-ink/40 uppercase tracking-wide mb-1">Company Name</label>
                         <input type="text" id="rfqBuyerCompany" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600">
                     </div>
                 </div>
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Email *</label>
+                        <label class="block text-xs font-bold text-ink/40 uppercase tracking-wide mb-1">Email *</label>
                         <input type="email" id="rfqBuyerEmail" required class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Phone</label>
+                        <label class="block text-xs font-bold text-ink/40 uppercase tracking-wide mb-1">Phone</label>
                         <input type="tel" id="rfqBuyerPhone" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-600">
                     </div>
                 </div>
                 <p id="rfqFormError" class="text-xs text-rose-600 hidden"></p>
-                <button type="submit" id="rfqSubmitBtn" class="w-full bg-brand-600 hover:bg-brand-700 text-white py-3 rounded-xl font-semibold transition-all shadow-md">Submit RFQ</button>
+                <button type="submit" id="rfqSubmitBtn" class="w-full bg-brand-800 hover:bg-brand-900 text-white py-3 rounded-xl font-semibold transition-all shadow-md">Submit RFQ</button>
             </form>
             <div id="rfqSuccessBox" class="hidden p-8 text-center">
-                <i class="fa-solid fa-circle-check text-4xl text-brand-600 mb-3"></i>
-                <h3 class="font-bold text-lg text-slate-900 mb-1">Quote Request Sent</h3>
-                <p class="text-sm text-slate-500">The supplier has been notified and will reach out to your email shortly.</p>
+                <span class="stamp stamp-animate inline-flex items-center justify-center w-16 h-16 text-brand-700 mb-4"><i class="fa-solid fa-check text-2xl"></i></span>
+                <h3 class="font-display font-semibold text-lg text-brand-900 mb-1">Quote Request Sent</h3>
+                <p class="text-sm text-ink/50">The supplier has been notified and will reach out to your email shortly.</p>
             </div>
         </div>
     </div>
 
-    <div id="sellerModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50 overflow-y-auto">
+    <div id="sellerModal" class="fixed inset-0 bg-ink/70 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50 overflow-y-auto">
         <div class="bg-white rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden border border-slate-100 my-8">
             <div class="bg-brand-900 text-white p-6 flex justify-between items-center">
                 <div>
-                    <h3 class="text-xl font-bold">Become a Verified Seller</h3>
-                    <p class="text-brand-100 text-xs mt-1">Submit your company details for review by our team.</p>
+                    <span class="font-mono text-[10px] uppercase tracking-widest text-gold-300/80 block mb-1">Form 01 — Onboarding</span>
+                    <h3 class="font-display text-xl font-semibold">Become a Verified Seller</h3>
                 </div>
-                <button onclick="closeSellerModal()" class="text-white/80 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
+                <button onclick="closeSellerModal()" class="text-white/70 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <form id="sellerForm" onsubmit="handleSellerSubmit(event)" class="p-6 space-y-4 max-h-[70vh] overflow-y-auto">
                 <div>
@@ -412,12 +515,12 @@
                     <input type="file" id="s_document" accept=".pdf,image/*" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm">
                 </div>
                 <p id="sellerFormError" class="text-xs text-rose-600 hidden"></p>
-                <button type="submit" id="sellerSubmitBtn" class="w-full bg-brand-600 hover:bg-brand-700 text-white py-3 rounded-xl font-semibold text-sm transition-colors">Submit Application</button>
+                <button type="submit" id="sellerSubmitBtn" class="w-full bg-brand-800 hover:bg-brand-900 text-white py-3 rounded-xl font-semibold text-sm transition-colors">Submit Application</button>
             </form>
             <div id="sellerSuccessBox" class="hidden p-8 text-center">
-                <i class="fa-solid fa-circle-check text-4xl text-brand-600 mb-3"></i>
-                <h3 class="font-bold text-lg text-slate-900 mb-1">Application Submitted</h3>
-                <p class="text-sm text-slate-500">Our team will review your details and documents and get back to you by email.</p>
+                <span class="stamp stamp-animate inline-flex items-center justify-center w-16 h-16 text-brand-700 mb-4"><i class="fa-solid fa-check text-2xl"></i></span>
+                <h3 class="font-display font-semibold text-lg text-brand-900 mb-1">Application Submitted</h3>
+                <p class="text-sm text-ink/50">Our team will review your details and documents and get back to you by email.</p>
             </div>
         </div>
     </div>
@@ -438,7 +541,7 @@
                 moisture: "8% Max",
                 packaging: "50kg Sealed PP Bags",
                 verifiedLevel: "Gold Verified",
-                image: "https://images.unsplash.com/photo-1590005354167-6da97870c913?auto=format&fit=crop&q=80&w=600",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Garri%20also%20called%20cassava%20flakes.jpg?width=600",
                 supplier: "A.I. Green Solutions Ventures Ltd"
             },
             {
@@ -454,7 +557,7 @@
                 moisture: "7.5% Max",
                 packaging: "40kg Mesh Bags",
                 verifiedLevel: "Gold Verified",
-                image: "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&q=80&w=600",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Ginger%20Root.jpg?width=600",
                 supplier: "Northern Fields Agribusiness"
             },
             {
@@ -470,7 +573,7 @@
                 moisture: "9% Max",
                 packaging: "25kg Jute Bags",
                 verifiedLevel: "Verified",
-                image: "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&q=80&w=600",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Turmeric%20Root%20and%20Turmeric%20Powder.jpg?width=600",
                 supplier: "Kano Organics Cooperative"
             },
             {
@@ -486,7 +589,7 @@
                 moisture: "5% Max",
                 packaging: "Vacuum Pack Sealed Cartons",
                 verifiedLevel: "Gold Verified",
-                image: "https://images.unsplash.com/photo-1587132137056-bfbf0166836e?auto=format&fit=crop&q=80&w=600",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Smoked%20fish%20in%20Ghana.jpg?width=600",
                 supplier: "Delta Coast Seafood Exporters"
             },
             {
@@ -502,7 +605,7 @@
                 moisture: "10% Max",
                 packaging: "25kg Custom PP Sacks",
                 verifiedLevel: "Verified",
-                image: "https://images.unsplash.com/photo-1587132137056-bfbf0166836e?auto=format&fit=crop&q=80&w=600",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Yam%20flour%20swallow%20and%20soup%20(Nigerian%20cuisine)(%20Amala).jpg?width=600",
                 supplier: "Ondo Farmers Alliance"
             },
             {
@@ -518,7 +621,7 @@
                 moisture: "6% Max",
                 packaging: "50kg PP Woven Bags",
                 verifiedLevel: "Gold Verified",
-                image: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&q=80&w=600",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Sesame%20seeds.JPG?width=600",
                 supplier: "Northern Fields Agribusiness"
             },
             {
@@ -534,7 +637,7 @@
                 moisture: "12% Max",
                 packaging: "50kg Jute Bags",
                 verifiedLevel: "Verified",
-                image: "https://images.unsplash.com/photo-1610725663608-2e2ce5f0b8c7?auto=format&fit=crop&q=80&w=600",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Soybeans,%20Hulled%20(5391755357).jpg?width=600",
                 supplier: "Kano Organics Cooperative"
             },
             {
@@ -550,7 +653,7 @@
                 moisture: "13% Max",
                 packaging: "50kg PP Woven Bags",
                 verifiedLevel: "Gold Verified",
-                image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&q=80&w=600",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Sorghum%20bicolor%20subsp.%20arundinaceum%20seeds.jpg?width=600",
                 supplier: "Northern Fields Agribusiness"
             }
         ];
@@ -580,56 +683,62 @@
 
             if (filteredProducts.length === 0) {
                 grid.innerHTML = `
-                    <div class="col-span-full text-center py-12 bg-white rounded-2xl border border-slate-200">
+                    <div class="col-span-full text-center py-16 bg-white rounded-2xl border border-brand-800/10">
                         <span class="text-4xl">🔎</span>
-                        <p class="text-slate-500 font-semibold mt-3">No export items match your current filter selection.</p>
+                        <p class="text-ink/50 font-medium mt-3">No export items match your current filter selection.</p>
                     </div>`;
                 return;
             }
 
             filteredProducts.forEach(product => {
+                const isGold = product.verifiedLevel === "Gold Verified";
                 const card = `
-                    <div class="bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-lg transition-all overflow-hidden flex flex-col justify-between">
+                    <div class="bg-white border border-brand-800/10 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all overflow-hidden flex flex-col justify-between group">
                         <div>
-                            <div class="relative h-48 w-full bg-slate-200">
-                                <img src="${product.image}" onerror="this.onerror=null;this.src='https://placehold.co/600x400/dcfce7/166534?text=${encodeURIComponent(product.category || product.sector || 'AI Green Solutions')}';" class="w-full h-full object-cover" alt="${product.name}">
-                                <span class="absolute top-3 left-3 bg-brand-900 text-white text-xs font-bold px-2.5 py-1 rounded-md shadow-sm">${product.sector}</span>
+                            <div class="relative h-48 w-full bg-brand-100 overflow-hidden">
+                                <img src="${product.image}" onerror="this.onerror=null;this.src='https://commons.wikimedia.org/wiki/Special:FilePath/Garri%20also%20called%20cassava%20flakes.jpg?width=600';" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="${product.name}">
+                                <div class="absolute inset-0 bg-gradient-to-t from-brand-900/60 via-transparent to-transparent"></div>
+                                <span class="absolute top-3 left-3 bg-white/90 backdrop-blur text-brand-900 text-[10px] font-mono font-semibold px-2.5 py-1 rounded-md uppercase tracking-wide">${product.sector}</span>
+                                ${isGold ? `<span class="stamp absolute top-3 right-3 text-white text-[9px] font-bold uppercase tracking-wider px-2.5 py-1">Gold</span>` : ''}
                             </div>
                             <div class="p-6">
-                                <div class="flex items-center gap-2 mb-2.5">
-                                    <span class="text-[11px] font-black px-2.5 py-1 rounded bg-emerald-50 text-emerald-700 flex items-center gap-1 border border-emerald-100/50">
+                                <div class="flex items-center justify-between mb-2.5">
+                                    <span class="text-[10px] font-mono font-semibold px-2 py-0.5 rounded bg-brand-50 text-brand-700 flex items-center gap-1.5 border border-brand-600/15">
                                         <i class="fa-solid fa-circle-check"></i> ${product.verifiedLevel}
                                     </span>
+                                    <span class="text-[10px] font-mono text-ink/30">#${String(product.id).padStart(4, '0')}</span>
                                 </div>
-                                <h3 class="font-extrabold text-lg text-slate-900 line-clamp-1 leading-snug">${product.name}</h3>
-                                <p class="text-xs text-slate-400 mt-1 font-medium">Supplier: ${product.supplier}</p>
-                                
-                                <div class="grid grid-cols-2 gap-4 my-4 bg-slate-50 p-3.5 rounded-xl border border-slate-100">
+                                <h3 class="font-display font-semibold text-lg text-brand-900 line-clamp-1 leading-snug">${product.name}</h3>
+                                <p class="text-xs text-ink/40 mt-1">Supplier: ${product.supplier}</p>
+
+                                <div class="manifest-rule my-4 opacity-70"></div>
+
+                                <div class="grid grid-cols-4 gap-2 font-mono">
                                     <div>
-                                        <span class="text-[9px] text-slate-400 uppercase font-extrabold tracking-wider block">Purity</span>
-                                        <span class="font-bold text-xs text-slate-700">${product.purity}</span>
+                                        <span class="text-[8px] text-ink/35 uppercase tracking-wider block">Purity</span>
+                                        <span class="font-semibold text-[11px] text-ink/80">${product.purity}</span>
                                     </div>
                                     <div>
-                                        <span class="text-[9px] text-slate-400 uppercase font-extrabold tracking-wider block">Moisture</span>
-                                        <span class="font-bold text-xs text-slate-700">${product.moisture}</span>
+                                        <span class="text-[8px] text-ink/35 uppercase tracking-wider block">Moisture</span>
+                                        <span class="font-semibold text-[11px] text-ink/80">${product.moisture}</span>
                                     </div>
                                     <div>
-                                        <span class="text-[9px] text-slate-400 uppercase font-extrabold tracking-wider block">Origin</span>
-                                        <span class="font-bold text-xs text-slate-700">${product.origin}</span>
+                                        <span class="text-[8px] text-ink/35 uppercase tracking-wider block">Origin</span>
+                                        <span class="font-semibold text-[11px] text-ink/80">${product.origin.split(',')[0]}</span>
                                     </div>
                                     <div>
-                                        <span class="text-[9px] text-slate-400 uppercase font-extrabold tracking-wider block">MOQ</span>
-                                        <span class="font-bold text-xs text-slate-700">${product.moq}</span>
+                                        <span class="text-[8px] text-ink/35 uppercase tracking-wider block">MOQ</span>
+                                        <span class="font-semibold text-[11px] text-ink/80">${product.moq}</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="px-6 pb-6 pt-2 border-t border-slate-100 flex items-center justify-between">
+                        <div class="px-6 pb-6 pt-4 border-t border-dashed border-brand-800/10 flex items-center justify-between">
                             <div>
-                                <span class="text-[10px] text-slate-400 uppercase font-bold block">Estimated Price</span>
-                                <span class="font-extrabold text-lg text-brand-700">${product.price} <span class="text-xs font-normal text-slate-500">/ ${product.priceUnit}</span></span>
+                                <span class="text-[9px] text-ink/35 uppercase font-mono tracking-wider block">Estimated Price</span>
+                                <span class="font-display font-semibold text-lg text-brand-800">${product.price} <span class="text-xs font-sans font-normal text-ink/40">/ ${product.priceUnit}</span></span>
                             </div>
-                            <button onclick="openRFQModal(${product.id}, '${product.name}', '${product.packaging}')" class="bg-brand-600 hover:bg-brand-700 text-white text-xs font-extrabold px-4.5 py-2.5 rounded-lg transition-colors shadow-sm">
+                            <button onclick="openRFQModal(${product.id}, '${product.name}', '${product.packaging}')" class="bg-brand-800 hover:bg-brand-900 text-white text-xs font-semibold px-4.5 py-2.5 rounded-lg transition-colors shadow-sm">
                                 Get Quote
                             </button>
                         </div>
@@ -810,7 +919,7 @@
                         moisture: p.moisture || "—",
                         packaging: p.packaging || (sizes.map(s => s.size_label).join(", ") || "—"),
                         verifiedLevel: p.verified_level || "Verified",
-                        image: p.image_url || `https://placehold.co/600x400/dcfce7/166534?text=${encodeURIComponent(p.category || p.sector || 'AI Green Solutions')}`,
+                        image: p.image_url || "https://commons.wikimedia.org/wiki/Special:FilePath/Garri%20also%20called%20cassava%20flakes.jpg?width=600",
                         supplier: p.supplier || "A.I. Green Solutions Ventures Ltd"
                     };
                 });
