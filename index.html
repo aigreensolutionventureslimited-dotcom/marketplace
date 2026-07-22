@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Green Solutions Marketplace - Africa's Trusted B2B Agribusiness Platform</title>
+    <link rel="icon" type="image/jpeg" href="https://res.cloudinary.com/dkwaxxkgb/image/upload/v1783025274/WhatsApp_Image_2026-05-27_at_17.03.30_gq1a1d.jpg">
+    <link rel="apple-touch-icon" href="https://res.cloudinary.com/dkwaxxkgb/image/upload/v1783025274/WhatsApp_Image_2026-05-27_at_17.03.30_gq1a1d.jpg">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -82,12 +84,26 @@
         }
 
         ::selection { background: #DCC078; color: #0F3D2E; }
+
+        /* Image loading skeleton */
+        .img-skeleton {
+            background: linear-gradient(110deg, #EEF3EC 8%, #E4ECE0 18%, #EEF3EC 33%);
+            background-size: 200% 100%;
+            animation: shimmer 1.6s linear infinite;
+        }
+        @keyframes shimmer {
+            to { background-position-x: -200%; }
+        }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         const SUPABASE_URL = "https://jpaieiwfvjeynrnrwuna.supabase.co";
         const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpwYWllaXdmdmpleW5ybnJ3dW5hIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ1MTk2NjgsImV4cCI6MjEwMDA5NTY2OH0.565R9VTEEpoYBk-MKg-US1oAE9WDVybphEMqMDL7fJg";
         const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // Name of the Supabase Storage bucket admins upload product photos into.
+        // Change this if your bucket is named differently.
+        const PRODUCT_IMAGE_BUCKET = "product-images";
     </script>
 </head>
 <body class="bg-paper text-ink font-sans min-h-screen flex flex-col">
@@ -97,7 +113,7 @@
             <div class="flex justify-between h-[72px]">
                 <div class="flex items-center">
                     <div class="flex-shrink-0 flex items-center gap-3">
-                        <span class="w-10 h-10 flex items-center justify-center bg-brand-800 rounded-full text-gold-300 border border-gold-300/40"><i class="fa-solid fa-leaf text-sm"></i></span>
+                        <img src="https://res.cloudinary.com/dkwaxxkgb/image/upload/v1783025274/WhatsApp_Image_2026-05-27_at_17.03.30_gq1a1d.jpg" alt="AI Green Solutions logo" class="w-10 h-10 rounded-full object-cover border border-gold-300/40">
                         <span class="font-display font-semibold text-xl tracking-tight text-brand-900 leading-none">AI Green <span class="italic font-normal text-brand-600">Solutions</span></span>
                     </div>
                     <div class="hidden md:ml-10 md:flex md:space-x-1">
@@ -362,7 +378,10 @@
     <footer class="bg-ink text-brand-100/60 pt-16 pb-8 px-4 border-t border-white/5 w-full mt-auto">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 pb-10 border-b border-dashed border-white/10">
             <div class="md:col-span-2">
-                <span class="font-display font-semibold text-xl text-white">AI Green <span class="italic font-normal text-gold-300">Solutions</span></span>
+                <div class="flex items-center gap-3 mb-1">
+                    <img src="https://res.cloudinary.com/dkwaxxkgb/image/upload/v1783025274/WhatsApp_Image_2026-05-27_at_17.03.30_gq1a1d.jpg" alt="AI Green Solutions logo" class="w-9 h-9 rounded-full object-cover border border-gold-300/30">
+                    <span class="font-display font-semibold text-xl text-white">AI Green <span class="italic font-normal text-gold-300">Solutions</span></span>
+                </div>
                 <p class="text-sm mt-3 text-brand-100/40 max-w-sm leading-relaxed">Africa's trusted B2B marketplace connecting verified exporters of spices, processed staples, and smoked products with global buyers.</p>
             </div>
             <div>
@@ -526,137 +545,9 @@
     </div>
 
     <script>
-        // Expanded Mock DB matching registry structures
-        const productDatabase = [
-            {
-                id: 1,
-                name: "Export-Grade White Garri (Fine Grain)",
-                category: "Garri",
-                sector: "Processed Foods",
-                origin: "Edo State, Nigeria",
-                price: "$1,100",
-                priceUnit: "Metric Ton",
-                moq: "5 MT",
-                purity: "99.2%",
-                moisture: "8% Max",
-                packaging: "50kg Sealed PP Bags",
-                verifiedLevel: "Gold Verified",
-                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Garri%20also%20called%20cassava%20flakes.jpg?width=600",
-                supplier: "A.I. Green Solutions Ventures Ltd"
-            },
-            {
-                id: 2,
-                name: "Premium Split Dried Ginger",
-                category: "Ginger",
-                sector: "Spices & Herbs",
-                origin: "Kaduna, Nigeria",
-                price: "$2,200",
-                priceUnit: "Metric Ton",
-                moq: "18 MT",
-                purity: "98.5%",
-                moisture: "7.5% Max",
-                packaging: "40kg Mesh Bags",
-                verifiedLevel: "Gold Verified",
-                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Ginger%20Root.jpg?width=600",
-                supplier: "Northern Fields Agribusiness"
-            },
-            {
-                id: 3,
-                name: "Dehydrated Premium Dried Turmeric",
-                category: "Turmeric",
-                sector: "Spices & Herbs",
-                origin: "Kano, Nigeria",
-                price: "$2,450",
-                priceUnit: "Metric Ton",
-                moq: "10 MT",
-                purity: "99%",
-                moisture: "9% Max",
-                packaging: "25kg Jute Bags",
-                verifiedLevel: "Verified",
-                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Turmeric%20Root%20and%20Turmeric%20Powder.jpg?width=600",
-                supplier: "Kano Organics Cooperative"
-            },
-            {
-                id: 4,
-                name: "Oron Smoked Crayfish & Dried Catfish Packs",
-                category: "Smoked Fish",
-                sector: "Smoked Products",
-                origin: "Ondo, Nigeria",
-                price: "$450",
-                priceUnit: "Carton",
-                moq: "50 Cartons",
-                purity: "100% Organic",
-                moisture: "5% Max",
-                packaging: "Vacuum Pack Sealed Cartons",
-                verifiedLevel: "Gold Verified",
-                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Smoked%20fish%20in%20Ghana.jpg?width=600",
-                supplier: "Delta Coast Seafood Exporters"
-            },
-            {
-                id: 5,
-                name: "Export Standard Yam Flour (Elubo)",
-                category: "Yam Flour",
-                sector: "Processed Foods",
-                origin: "Ondo, Nigeria",
-                price: "$1,350",
-                priceUnit: "Metric Ton",
-                moq: "3 MT",
-                purity: "99.8%",
-                moisture: "10% Max",
-                packaging: "25kg Custom PP Sacks",
-                verifiedLevel: "Verified",
-                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Yam%20flour%20swallow%20and%20soup%20(Nigerian%20cuisine)(%20Amala).jpg?width=600",
-                supplier: "Ondo Farmers Alliance"
-            },
-            {
-                id: 6,
-                name: "Export-Grade Hulled Sesame Seeds",
-                category: "Sesame Seeds",
-                sector: "Grains & Seeds",
-                origin: "Kaduna, Nigeria",
-                price: "$1,850",
-                priceUnit: "Metric Ton",
-                moq: "20 MT",
-                purity: "99.5%",
-                moisture: "6% Max",
-                packaging: "50kg PP Woven Bags",
-                verifiedLevel: "Gold Verified",
-                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Sesame%20seeds.JPG?width=600",
-                supplier: "Northern Fields Agribusiness"
-            },
-            {
-                id: 7,
-                name: "Premium Grade A Soybeans",
-                category: "Soybean",
-                sector: "Grains & Seeds",
-                origin: "Kano, Nigeria",
-                price: "$620",
-                priceUnit: "Metric Ton",
-                moq: "25 MT",
-                purity: "98%",
-                moisture: "12% Max",
-                packaging: "50kg Jute Bags",
-                verifiedLevel: "Verified",
-                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Soybeans,%20Hulled%20(5391755357).jpg?width=600",
-                supplier: "Kano Organics Cooperative"
-            },
-            {
-                id: 8,
-                name: "Clean White Sorghum Grain",
-                category: "Sorghum",
-                sector: "Grains & Seeds",
-                origin: "Kaduna, Nigeria",
-                price: "$430",
-                priceUnit: "Metric Ton",
-                moq: "30 MT",
-                purity: "99%",
-                moisture: "13% Max",
-                packaging: "50kg PP Woven Bags",
-                verifiedLevel: "Gold Verified",
-                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Sorghum%20bicolor%20subsp.%20arundinaceum%20seeds.jpg?width=600",
-                supplier: "Northern Fields Agribusiness"
-            }
-        ];
+        // Product catalog is populated exclusively from Supabase (admin uploads).
+        // No demo/sample products ship with this page — see loadLiveProducts().
+        const productDatabase = [];
 
         let activeFilters = {
             search: "",
@@ -664,6 +555,47 @@
             origin: "",
             tier: ""
         };
+
+        // ---------------- Image resolution helpers ----------------
+        // Builds a clean, on-brand placeholder (no external stock photo) shown
+        // whenever a listing has no admin-uploaded image yet, or its image fails to load.
+        function brandPlaceholderDataUri(label) {
+            const safeLabel = (label || "Image Coming Soon").replace(/&/g, "&amp;").replace(/</g, "&lt;");
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="450" viewBox="0 0 600 450">
+                    <rect width="600" height="450" fill="#EEF3EC"/>
+                    <circle cx="300" cy="180" r="46" fill="#0F3D2E"/>
+                    <text x="300" y="197" font-family="sans-serif" font-size="42" fill="#DCC078" text-anchor="middle">&#127811;</text>
+                    <text x="300" y="270" font-family="Georgia, serif" font-size="20" fill="#175939" text-anchor="middle" font-weight="600">${safeLabel}</text>
+                    <text x="300" y="298" font-family="sans-serif" font-size="12" letter-spacing="2" fill="#8FB07E" text-anchor="middle">AI GREEN SOLUTIONS - SUPPLIER PHOTO PENDING</text>
+                </svg>`;
+            // encodeURIComponent is Unicode-safe, unlike btoa() which corrupts
+            // non-Latin1 characters (this previously broke the placeholder itself).
+            return "data:image/svg+xml," + encodeURIComponent(svg);
+        }
+
+        const PLACEHOLDER_IMAGE = brandPlaceholderDataUri("Image Coming Soon");
+
+        // Resolves whatever is stored in a product's image_url field into a real, loadable URL.
+        // Handles three cases admins commonly run into:
+        //   1. Empty / null            -> branded placeholder
+        //   2. Full URL (http/https)   -> used as-is
+        //   3. A Storage object path   -> converted to a public Supabase Storage URL
+        function resolveProductImage(rawUrl) {
+            if (!rawUrl || typeof rawUrl !== "string" || !rawUrl.trim()) {
+                return PLACEHOLDER_IMAGE;
+            }
+            const trimmed = rawUrl.trim();
+            if (/^https?:\/\//i.test(trimmed) || trimmed.startsWith("data:")) {
+                return trimmed;
+            }
+            // Treat anything else as a path inside the product-images bucket
+            try {
+                const { data } = sb.storage.from(PRODUCT_IMAGE_BUCKET).getPublicUrl(trimmed.replace(/^\/+/, ""));
+                return data?.publicUrl || PLACEHOLDER_IMAGE;
+            } catch (e) {
+                return PLACEHOLDER_IMAGE;
+            }
+        }
 
         // Render Marketplace Cards
         function renderProducts() {
@@ -682,21 +614,34 @@
             });
 
             if (filteredProducts.length === 0) {
-                grid.innerHTML = `
+                const hasAnyProducts = productDatabase.length > 0;
+                grid.innerHTML = hasAnyProducts
+                    ? `
                     <div class="col-span-full text-center py-16 bg-white rounded-2xl border border-brand-800/10">
                         <span class="text-4xl">🔎</span>
                         <p class="text-ink/50 font-medium mt-3">No export items match your current filter selection.</p>
+                    </div>`
+                    : `
+                    <div class="col-span-full text-center py-20 bg-white rounded-2xl border border-brand-800/10 corner-ticks">
+                        <span class="w-14 h-14 mx-auto flex items-center justify-center bg-brand-50 rounded-full text-2xl text-brand-700 mb-4"><i class="fa-solid fa-box-open"></i></span>
+                        <h3 class="font-display font-semibold text-lg text-brand-900">No active consignments yet</h3>
+                        <p class="text-ink/50 text-sm mt-2 max-w-sm mx-auto">Verified suppliers haven't listed products yet. Check back soon, or <button onclick="openSellerModal()" class="text-brand-700 font-semibold underline underline-offset-2">apply as a seller</button> to be the first.</p>
                     </div>`;
                 return;
             }
 
             filteredProducts.forEach(product => {
                 const isGold = product.verifiedLevel === "Gold Verified";
+                const imgSrc = resolveProductImage(product.image_url);
+                const placeholderForThis = brandPlaceholderDataUri(product.category || "Image Coming Soon").replace(/'/g, "&#39;");
                 const card = `
                     <div class="bg-white border border-brand-800/10 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all overflow-hidden flex flex-col justify-between group">
                         <div>
-                            <div class="relative h-48 w-full bg-brand-100 overflow-hidden">
-                                <img src="${product.image}" onerror="this.onerror=null;this.src='https://commons.wikimedia.org/wiki/Special:FilePath/Garri%20also%20called%20cassava%20flakes.jpg?width=600';" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="${product.name}">
+                            <div class="relative h-48 w-full bg-brand-100 overflow-hidden img-skeleton">
+                                <img src="${imgSrc}" loading="lazy"
+                                     onload="this.parentElement.classList.remove('img-skeleton')"
+                                     onerror="this.onerror=null;this.parentElement.classList.remove('img-skeleton');this.src='${placeholderForThis}';"
+                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="${product.name}">
                                 <div class="absolute inset-0 bg-gradient-to-t from-brand-900/60 via-transparent to-transparent"></div>
                                 <span class="absolute top-3 left-3 bg-white/90 backdrop-blur text-brand-900 text-[10px] font-mono font-semibold px-2.5 py-1 rounded-md uppercase tracking-wide">${product.sector}</span>
                                 ${isGold ? `<span class="stamp absolute top-3 right-3 text-white text-[9px] font-bold uppercase tracking-wider px-2.5 py-1">Gold</span>` : ''}
@@ -897,14 +842,18 @@
         }
 
         // ---------------- Load Live Products from Supabase ----------------
+        // This is the ONLY source of truth for the catalog. There is no demo/fallback
+        // data — whatever is in the `products` table (from your admin upload flow) is
+        // exactly what renders here, including the case where the table is empty.
         async function loadLiveProducts() {
+            const grid = document.getElementById("productGrid");
             try {
                 const { data: products, error } = await sb.from("products").select("*").order("created_at", { ascending: false });
-                if (error || !products || products.length === 0) return; // keep demo data as fallback
+                if (error) throw error;
 
                 const { data: allSizes } = await sb.from("product_sizes").select("*");
 
-                const liveProducts = products.map(p => {
+                const liveProducts = (products || []).map(p => {
                     const sizes = (allSizes || []).filter(s => s.product_id === p.id);
                     return {
                         id: p.id,
@@ -919,23 +868,44 @@
                         moisture: p.moisture || "—",
                         packaging: p.packaging || (sizes.map(s => s.size_label).join(", ") || "—"),
                         verifiedLevel: p.verified_level || "Verified",
-                        image: p.image_url || "https://commons.wikimedia.org/wiki/Special:FilePath/Garri%20also%20called%20cassava%20flakes.jpg?width=600",
+                        // Keep the raw value from the admin — resolveProductImage() in
+                        // renderProducts() turns it into a real URL or a placeholder.
+                        image_url: p.image_url || null,
                         supplier: p.supplier || "A.I. Green Solutions Ventures Ltd"
                     };
                 });
 
-                // Replace the demo catalog with real uploaded products
                 productDatabase.length = 0;
                 productDatabase.push(...liveProducts);
                 renderProducts();
             } catch (e) {
-                console.warn("Could not load live products, showing demo listings.", e);
+                console.error("Could not load products from Supabase:", e);
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-20 bg-white rounded-2xl border border-rose-200">
+                        <span class="w-14 h-14 mx-auto flex items-center justify-center bg-rose-50 rounded-full text-2xl text-rose-600 mb-4"><i class="fa-solid fa-triangle-exclamation"></i></span>
+                        <h3 class="font-display font-semibold text-lg text-brand-900">Couldn't load listings</h3>
+                        <p class="text-ink/50 text-sm mt-2">There was a problem connecting to the marketplace database. Please refresh the page.</p>
+                    </div>`;
             }
         }
 
-        // Initial Load Execution
+        // Initial Load Execution — show a loading skeleton immediately, then
+        // replace it with real Supabase data (or an empty/error state) once it arrives.
+        function renderLoadingSkeleton() {
+            const grid = document.getElementById("productGrid");
+            grid.innerHTML = Array.from({ length: 6 }).map(() => `
+                <div class="bg-white border border-brand-800/10 rounded-2xl overflow-hidden">
+                    <div class="h-48 w-full img-skeleton"></div>
+                    <div class="p-6 space-y-3">
+                        <div class="h-3 w-24 rounded img-skeleton"></div>
+                        <div class="h-5 w-4/5 rounded img-skeleton"></div>
+                        <div class="h-3 w-1/2 rounded img-skeleton"></div>
+                    </div>
+                </div>`).join("");
+        }
+
         window.onload = () => {
-            renderProducts();
+            renderLoadingSkeleton();
             loadLiveProducts();
         };
     </script>
