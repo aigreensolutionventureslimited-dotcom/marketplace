@@ -131,11 +131,29 @@
     </nav>
 
     <header class="relative bg-brand-900 text-white overflow-hidden">
-        <div class="absolute inset-0 paper-texture opacity-[0.15]"></div>
-        <div class="absolute -right-24 -top-24 w-[420px] h-[420px] rounded-full border border-gold-300/10"></div>
-        <div class="absolute -right-6 top-16 w-[280px] h-[280px] rounded-full border border-gold-300/10"></div>
+        <!--
+            HERO PHOTO SLIDESHOW
+            These 3 images are placeholder illustrations (safe, license-free, drawn
+            purely in code — no external photo is hot-linked) so the slideshow works
+            out of the box. To show your own photography instead, just replace the
+            three src="..." values below with your real photo URLs — e.g. images you
+            upload to the same Cloudinary account already hosting your logo/video —
+            and everything else (fading, timing, dark overlay) keeps working as-is.
+        -->
+        <div id="heroSlideshow" class="absolute inset-0 z-0">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'%3E%3Cdefs%3E%3ClinearGradient id='g1' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%230F3D2E'/%3E%3Cstop offset='1' stop-color='%231F6F4A'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='900' fill='url(%23g1)'/%3E%3Ctext x='800' y='560' font-size='460' text-anchor='middle' opacity='0.16'%3E%F0%9F%AB%9A%3C/text%3E%3C/svg%3E"
+                 class="hero-slide absolute inset-0 w-full h-full object-cover opacity-100 transition-opacity duration-[1500ms] ease-in-out" alt="Spices and herbs">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'%3E%3Cdefs%3E%3ClinearGradient id='g2' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%230A2A20'/%3E%3Cstop offset='1' stop-color='%23175939'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='900' fill='url(%23g2)'/%3E%3Ctext x='800' y='560' font-size='460' text-anchor='middle' opacity='0.16'%3E%F0%9F%9A%A2%3C/text%3E%3C/svg%3E"
+                 class="hero-slide absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-[1500ms] ease-in-out" alt="Export shipping">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'%3E%3Cdefs%3E%3ClinearGradient id='g3' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23175939'/%3E%3Cstop offset='1' stop-color='%230F3D2E'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='900' fill='url(%23g3)'/%3E%3Ctext x='800' y='560' font-size='460' text-anchor='middle' opacity='0.16'%3E%F0%9F%8C%BE%3C/text%3E%3C/svg%3E"
+                 class="hero-slide absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-[1500ms] ease-in-out" alt="Grains and produce">
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-b from-brand-900/85 via-brand-900/75 to-brand-900/92 z-[1]"></div>
+        <div class="absolute inset-0 paper-texture opacity-[0.15] z-[2]"></div>
+        <div class="absolute -right-24 -top-24 w-[420px] h-[420px] rounded-full border border-gold-300/10 z-[2]"></div>
+        <div class="absolute -right-6 top-16 w-[280px] h-[280px] rounded-full border border-gold-300/10 z-[2]"></div>
 
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div class="lg:col-span-7">
                 <div class="flex items-center gap-3 mb-7">
                     <span class="font-mono text-[11px] tracking-[0.2em] text-gold-300 uppercase">Ref. No. AGS&#8209;2026&#8209;TRADE</span>
@@ -597,6 +615,18 @@
             }
         }
 
+        // Escape text before injecting into HTML/attributes so that apostrophes,
+        // quotes, or angle brackets in supplier-entered data (product names,
+        // packaging, etc.) can never break the markup or a click handler.
+        function escapeHtml(value) {
+            return String(value ?? "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#39;");
+        }
+
         // Render Marketplace Cards
         function renderProducts() {
             const grid = document.getElementById("productGrid");
@@ -641,39 +671,39 @@
                                 <img src="${imgSrc}" loading="lazy"
                                      onload="this.parentElement.classList.remove('img-skeleton')"
                                      onerror="this.onerror=null;this.parentElement.classList.remove('img-skeleton');this.src='${placeholderForThis}';"
-                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="${product.name}">
+                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="${escapeHtml(product.name)}">
                                 <div class="absolute inset-0 bg-gradient-to-t from-brand-900/60 via-transparent to-transparent"></div>
-                                <span class="absolute top-3 left-3 bg-white/90 backdrop-blur text-brand-900 text-[10px] font-mono font-semibold px-2.5 py-1 rounded-md uppercase tracking-wide">${product.sector}</span>
+                                <span class="absolute top-3 left-3 bg-white/90 backdrop-blur text-brand-900 text-[10px] font-mono font-semibold px-2.5 py-1 rounded-md uppercase tracking-wide">${escapeHtml(product.sector)}</span>
                                 ${isGold ? `<span class="stamp absolute top-3 right-3 text-white text-[9px] font-bold uppercase tracking-wider px-2.5 py-1">Gold</span>` : ''}
                             </div>
                             <div class="p-6">
                                 <div class="flex items-center justify-between mb-2.5">
                                     <span class="text-[10px] font-mono font-semibold px-2 py-0.5 rounded bg-brand-50 text-brand-700 flex items-center gap-1.5 border border-brand-600/15">
-                                        <i class="fa-solid fa-circle-check"></i> ${product.verifiedLevel}
+                                        <i class="fa-solid fa-circle-check"></i> ${escapeHtml(product.verifiedLevel)}
                                     </span>
                                     <span class="text-[10px] font-mono text-ink/30">#${String(product.id).padStart(4, '0')}</span>
                                 </div>
-                                <h3 class="font-display font-semibold text-lg text-brand-900 line-clamp-1 leading-snug">${product.name}</h3>
-                                <p class="text-xs text-ink/40 mt-1">Supplier: ${product.supplier}</p>
+                                <h3 class="font-display font-semibold text-lg text-brand-900 line-clamp-1 leading-snug">${escapeHtml(product.name)}</h3>
+                                <p class="text-xs text-ink/40 mt-1">Supplier: ${escapeHtml(product.supplier)}</p>
 
                                 <div class="manifest-rule my-4 opacity-70"></div>
 
                                 <div class="grid grid-cols-4 gap-2 font-mono">
                                     <div>
                                         <span class="text-[8px] text-ink/35 uppercase tracking-wider block">Purity</span>
-                                        <span class="font-semibold text-[11px] text-ink/80">${product.purity}</span>
+                                        <span class="font-semibold text-[11px] text-ink/80">${escapeHtml(product.purity)}</span>
                                     </div>
                                     <div>
                                         <span class="text-[8px] text-ink/35 uppercase tracking-wider block">Moisture</span>
-                                        <span class="font-semibold text-[11px] text-ink/80">${product.moisture}</span>
+                                        <span class="font-semibold text-[11px] text-ink/80">${escapeHtml(product.moisture)}</span>
                                     </div>
                                     <div>
                                         <span class="text-[8px] text-ink/35 uppercase tracking-wider block">Origin</span>
-                                        <span class="font-semibold text-[11px] text-ink/80">${product.origin.split(',')[0]}</span>
+                                        <span class="font-semibold text-[11px] text-ink/80">${escapeHtml(product.origin.split(',')[0])}</span>
                                     </div>
                                     <div>
                                         <span class="text-[8px] text-ink/35 uppercase tracking-wider block">MOQ</span>
-                                        <span class="font-semibold text-[11px] text-ink/80">${product.moq}</span>
+                                        <span class="font-semibold text-[11px] text-ink/80">${escapeHtml(product.moq)}</span>
                                     </div>
                                 </div>
                             </div>
@@ -681,9 +711,9 @@
                         <div class="px-6 pb-6 pt-4 border-t border-dashed border-brand-800/10 flex items-center justify-between">
                             <div>
                                 <span class="text-[9px] text-ink/35 uppercase font-mono tracking-wider block">Estimated Price</span>
-                                <span class="font-display font-semibold text-lg text-brand-800">${product.price} <span class="text-xs font-sans font-normal text-ink/40">/ ${product.priceUnit}</span></span>
+                                <span class="font-display font-semibold text-lg text-brand-800">${escapeHtml(product.price)} <span class="text-xs font-sans font-normal text-ink/40">/ ${escapeHtml(product.priceUnit)}</span></span>
                             </div>
-                            <button onclick="openRFQModal(${product.id}, '${product.name}', '${product.packaging}')" class="bg-brand-800 hover:bg-brand-900 text-white text-xs font-semibold px-4.5 py-2.5 rounded-lg transition-colors shadow-sm">
+                            <button type="button" data-quote-id="${escapeHtml(product.id)}" class="js-get-quote bg-brand-800 hover:bg-brand-900 text-white text-xs font-semibold px-4.5 py-2.5 rounded-lg transition-colors shadow-sm">
                                 Get Quote
                             </button>
                         </div>
@@ -723,12 +753,25 @@
         }
 
         // RFQ Modal Handlers
-        function openRFQModal(id, productName, packaging) {
+        // Get Quote buttons no longer carry an inline onclick with interpolated
+        // product text (that broke — and made the button appear "dead" with no
+        // visible error — the moment any product name/packaging contained an
+        // apostrophe or quotation mark, e.g. "Farmer's Choice Garri"). Instead we
+        // use one delegated click listener and look the product back up by id.
+        document.getElementById("productGrid").addEventListener("click", (event) => {
+            const btn = event.target.closest(".js-get-quote");
+            if (!btn) return;
+            openRFQModal(btn.dataset.quoteId);
+        });
+
+        function openRFQModal(id) {
+            const product = productDatabase.find(p => String(p.id) === String(id));
+            if (!product) return;
             document.getElementById("rfqForm").classList.remove("hidden");
             document.getElementById("rfqSuccessBox").classList.add("hidden");
-            document.getElementById("rfqProductId").value = id;
-            document.getElementById("rfqProductName").value = productName;
-            document.getElementById("rfqPackaging").value = packaging;
+            document.getElementById("rfqProductId").value = product.id;
+            document.getElementById("rfqProductName").value = product.name;
+            document.getElementById("rfqPackaging").value = product.packaging;
             document.getElementById("rfqModal").classList.remove("hidden");
         }
 
@@ -904,9 +947,22 @@
                 </div>`).join("");
         }
 
+        // ---------------- Hero Background Slideshow ----------------
+        function initHeroSlideshow() {
+            const slides = document.querySelectorAll('#heroSlideshow .hero-slide');
+            if (slides.length < 2) return;
+            let current = 0;
+            setInterval(() => {
+                slides[current].classList.replace('opacity-100', 'opacity-0');
+                current = (current + 1) % slides.length;
+                slides[current].classList.replace('opacity-0', 'opacity-100');
+            }, 5000);
+        }
+
         window.onload = () => {
             renderLoadingSkeleton();
             loadLiveProducts();
+            initHeroSlideshow();
         };
     </script>
 </body>
